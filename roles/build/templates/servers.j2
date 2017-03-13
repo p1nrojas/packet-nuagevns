@@ -1,0 +1,59 @@
+# *** WARNING ***
+# This is a generated file. Manual changes to this file
+# will be lost if reset-build or build is run
+#
+# Server name: {{ item.hostname }}
+# Description: {{ item.description }}
+
+image_qcow2: {{ item.image_qcow2 }}
+hypervisor: {{ item.hypervisor }}
+memory_KiB: {{ item.memory }}
+vcpu_num: {{ item.vcpu_num }}
+{%if item.disk_GB is defined %}disk_GB: {{ item.disk_GB }}{% endif %}
+
+{%if item.Is_NM_enabled is defined %}Is_NM_enabled: {{ item.Is_NM_enabled }}{% endif %}
+
+{%if item.No_cloud_init is defined %}No_cloud_init: {{ item.No_cloud_init }}{% endif %}
+
+{%if item.Guestfish is defined %}Guestfish: {{ item.Guestfish }}{% endif %}
+
+{% if item is defined %}
+{%if item.gateway is defined %}gateway: {{ item.gateway }}{% endif %}
+
+interfaces:
+{% for interfaces in item.interfaces %}
+  - { name: {{ interfaces.name }} ,
+      bridge: {{ interfaces.bridge }} ,
+      {%if interfaces.ip is defined %}ip: {{ interfaces.ip }} ,{% endif %}
+
+      {%if interfaces.netmask is defined %}netmask: {{ interfaces.netmask }}{% endif %} }
+{% endfor %}
+{% endif %}
+{% if item.ntpservers is defined %}
+{% if item.ntpservers == "local" %}
+ntp_server: "local"
+{% else %}
+ntp_server:
+{% for server in item.ntpservers %}
+  - {{ server }}
+{% endfor %}
+{% endif %}
+{% else %}
+ntp_server:
+{% for server in ntp_server_list %}
+  - {{ server }}
+{% endfor %}
+{% endif %}
+{% if item.nameservers is defined %}
+dns:
+  servers:
+{% for server in item.nameservers %}
+    - {{ server }}
+{% endfor %}
+{% else %}
+dns:
+  servers:
+{% for server in dns_server_list %}
+    - {{ server }}
+{% endfor %}
+{% endif %}

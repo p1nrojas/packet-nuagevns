@@ -1,0 +1,20 @@
+---
+#- name: Creating a ssh key nuage-vns-inabox in packet.net
+- packet_sshkey:
+    label: nuage-vns-inabox
+#    ssh_pub_key: "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"
+    key: "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"
+    state: present
+    auth_token: "{{ packet_token }}"
+
+- name: Creating a Bare Metal server
+  packet_device:
+    project_id: "{{ project_id }}"
+    hostnames: sdwan
+    plan: baremetal_0
+    facility: sjc1
+    operating_system: centos_7
+    state: present
+    auth_token: "{{ packet_token }}"
+
+#auth_token,count,count_offset,device_ids,facility,features,hostnames,locked,operating_system,plan,project_id,state,user_data,wait,wait_timeout
