@@ -14,17 +14,15 @@
 - name: Create group_vars/all file
   template: src=group_vars.all.j2 dest="{{ playbook_dir }}/group_vars/all" backup=no
 
-- name: Create util-deploy.yml file
-  template: src=util-deploy.yml.j2 dest="{{ playbook_dir }}/util-deploy.yml" backup=no
-
-- name: Create nserver-deploy.yml file
-  template: src=nserver-deploy.yml.j2 dest="{{ playbook_dir }}/nserver-deploy.yml" backup=no
-
-- name: Create stat-deploy.yml file
-  template: src=stat-deploy.yml.j2 dest="{{ playbook_dir }}/stat-deploy.yml" backup=no
-
-- name: Create vsd-deploy.yml file
-  template: src=vsd-deploy.yml.j2 dest="{{ playbook_dir }}/vsd-deploy.yml" backup=no
-
-- name: Create nuage-install.yml file
-  template: src=nuage-install.yml.j2 dest="{{ playbook_dir }}/nuage-install.yml" backup=no
+- name: Create YML files
+  template: src={{ item }}.j2 dest="{{ playbook_dir }}/{{ item }}" backup=no
+  with_items: 
+    - util-deploy.yml
+    - nserver-deploy.yml
+    - stat-deploy.yml
+    - vsd-deploy.yml
+    - nuage-install.yml
+    - bridges.yml
+    - reset-all-domains.yml
+    - packet-create.yml
+    - packet-reset.yml

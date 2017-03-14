@@ -24,6 +24,8 @@ RUN mkdir -p /home/dev/.vim/autoload /home/dev/.vim/bundle
 RUN curl -LSso /home/dev/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 RUN git clone git://github.com/chase/vim-ansible-yaml.git  /home/dev/.vim/bundle/vim-ansible-yaml
 RUN git clone https://github.com/lepture/vim-jinja.git /home/dev/.vim/bundle/vim-jinja
+RUN git clone git://github.com/ansible/ansible.git --recursive /home/dev/ansible
+RUN source /home/dev/ansible/hacking/env-setup 
 
 RUN chown -R dev: /home/dev
 USER dev

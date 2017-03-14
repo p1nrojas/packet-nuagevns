@@ -12,8 +12,8 @@
     - _bridges
 #    - _bridges-reset
   vars:
-    hypervisor: 192.168.1.113
-    public_if: enp0s20f1
+    hypervisor: {{ hypervisor }}
+    public_if: {{ public_if }}
     bridges:
       - { name: datacenter,
           dummy_if: dummy0 ,

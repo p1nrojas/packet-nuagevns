@@ -29,6 +29,10 @@ then
     echo "$(date) Images have been copied..."
 fi
 
+# Activating hacking in ansible
+echo "$(date) Activating hacking in ansible"
+source /home/dev/ansible/hacking/env-setup
+
 # Start creating your servers
 echo "$(date) Start creating your servers"
 ansible-playbook -i hosts nuage-install.yml

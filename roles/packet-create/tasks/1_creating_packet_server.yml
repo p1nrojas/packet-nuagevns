@@ -1,18 +1,22 @@
 ---
-- name: Removing a ssh key nuage-vns-inabox in packet.net
+- name: Creating a ssh key nuage-vns-inabox in packet.net
   packet_sshkey:
     label: nuage-vns-inabox
     key: "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"
-    state: absent
+#    ssh_pub_key: "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"
+    state: present
     auth_token: "{{ packet_token }}"
 
-- name: Removing a Bare Metal server
+- name: Creating a Bare Metal server
   packet_device:
     project_id: "{{ project_id }}"
     hostnames: "{{ device_name }}"
     plan: "{{ bmetal_plan }}"
     facility: sjc1
     operating_system: centos_7
-    state: absent
+    state: present
     auth_token: "{{ packet_token }}"
+  register: result
 
+- name: "Waiting up to 10min for server"
+  local_action: wait_for host={{ hypervisor }} port=22 delay=30 timeout=600

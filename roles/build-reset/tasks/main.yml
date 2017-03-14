@@ -32,3 +32,7 @@
     - stat-deploy.yml
     - nserver-deploy.yml
     - util-deploy.yml
+    - bridges.yml
+    - reset-all-domains.yml
+    - packet-create.yml
+    - packet-reset.yml

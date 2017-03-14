@@ -1,0 +1,39 @@
+- name: "Getting the IP address of the base system"
+  local_action: command python {{playbook_dir}}/roles/packet-create/files/packet_get_ipaddr.py {{ project_id }} {{ packet_token }} {{ base_system }}
+  register: base_sys
+
+- name: Verification Result Failure Status
+  fail: msg={{ base_sys.stdout }}
+  when: base_sys.stdout | match("!^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$")
+
+- name: Verification Result Success Status
+  debug: var=base_sys.stdout
+
+- name: "Getting the IP address from Packet server"
+  local_action: command python {{playbook_dir}}/roles/packet-create/files/packet_get_ipaddr.py {{ project_id }} {{ packet_token }} {{ device_name }}
+  register: sdwan_sys
+
+- name: Verification Result Failure Status
+  fail: msg={{ sdwan_sys.stdout }}
+  when: sdwan_sys.stdout | match("!^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$")
+
+- name: Verification Result Success Status
+  debug: var=sdwan_sys.stdout
+
+- name: Pull facts on base_system
+  action: setup
+  delegate_to: "{{ base_sys.stdout }}"
+
+- name: Adding route to base system
+  shell: route add -net 10.10.10.0/24 gw {{ device_name }} dev eth0
+  delegate_to: '{{ base_sys.stdout }}' 
+
+- name: Adding device packet devive private IP to build.yml
+  replace:
+    destfile: '{{playbook_dir}}/{{ item }}'
+    regexp: '<packet-device-private-ip>'
+    replace: '{{ sdwan_sys.stdout }}'
+    backup: no
+  with_items:
+    - build.yml
+    - bridges.yml
