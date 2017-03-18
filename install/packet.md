@@ -1,23 +1,39 @@
 # Prepare your brand new bare metal server in packet.net
 
+Create your baremetal server type 0 called "ansible"
+Then run the following
+Caution: This will reboot the server
+
 ```
-yum -y install docker
-service docker start
-yum -y install git
-mkdir ~/docker
-cd ~/docker
-mkdir -p ./var/log
-mkdir -p ./var/tmp
-mkdir ~/docker/.ssh
-ssh-keygen -t rsa -b 4096 -C "dev@nuage.io" -f ~/docker/.ssh/id_rsa -q -N ""
-mkdir -p ~/docker/code
-cd ~/docker/code
-git clone //github.com/ansible/ansible ~/ansible
-git clone https://github.com/p1nrojas/packet-nuagevns ~/docker/code/packet-nuagevns
-echo "log_path = /var/log/ansible/ansible-vsc-in-a-box.log" >> ~/docker/code/packet-nuagevns/ansible.cfg
-chown -R 1000:1000 ~/docker
-cd ~/docker/code/packet-nuagevns/install
+yum update
+curl -fsSL https://get.docker.com/ | sh
+systemctl start docker
+curl -L git.io/weave -o /usr/local/bin/weave
+chmod a+x /usr/local/bin/weave
+reboot
+```
+
+After reboot do as follow. 
+
+```
+mkdir -p ~/github/packet-nuagevns
+cd ~/github/packet-nuagevns
+curl -o Dockerfile https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/Dockerfile
 docker build -t packet-nuagevns .
-docker run -d -i -t --name vns01 -v ~/docker/.ssh:/home/dev/.ssh -v ~/docker/var/log:/var/log/ansible -v ~/docker/code/packet-nuagevns:/home/dev/packet-nuagevns -v ~/docker/var/tmp:/tmp packet-nuagevns  /bin/bash
+```
+
+When the docker image is finished, do as follow
+
+```
+docker run -d -i -t --name vns01 -v ~/packet-nuagevns/home:/home/dev -v ~/packet-nuagevns/var:/var -v ~/packet-nuagevnsvar/tmp:/tmp packet-nuagevns  /bin/bash
 docker exec -i -t vns01 /bin/bash
+```
+
+Then, when to get into the container. run the following:
+
+```
+ssh-keygen -t rsa -b 4096 -C "dev@nuage.io" -f ~/.ssh/id_rsa -q -N ""
+git clone //github.com/ansible/ansible ~/ansible
+git clone https://github.com/p1nrojas/packet-nuagevns ~/packet-nuagevns
+echo "log_path = /var/log/ansible/ansible-packet-nuagevns.log" >> ~/docker/code/packet-nuagevns/ansible.cfg
 ```
