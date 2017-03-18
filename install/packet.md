@@ -12,6 +12,7 @@ mkdir ~/docker/.ssh
 ssh-keygen -t rsa -b 4096 -C "dev@nuage.io" -f ~/docker/.ssh/id_rsa -q -N ""
 mkdir -p ~/docker/code
 cd ~/docker/code
+git clone //github.com/ansible/ansible ~/ansible
 git clone https://github.com/p1nrojas/packet-nuagevns ~/docker/code/packet-nuagevns
 echo "log_path = /var/log/ansible/ansible-vsc-in-a-box.log" >> ~/docker/code/packet-nuagevns/ansible.cfg
 chown -R 1000:1000 ~/docker

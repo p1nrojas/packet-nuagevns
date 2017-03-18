@@ -38,6 +38,29 @@ then
     echo "$(date) Images have been copied..."
 fi
 
+ssh-keygen -R {{ hypervisor }}
+
+index=20
+until [[ $index -lt  0 ]]
+do
+status=$(ssh -o BatchMode=yes -o ConnectTimeout=5 {{ hypervisor }} echo ok 2>&1)
+if [[ $status == ok ]] || [[ $status == "Permission denied"* ]] || [[ $status == "Host key"* ]] ; then
+  echo "$(date) auth ok: $status, do something"
+  break
+else
+  echo "$(date) no access to {{ hypervisor }} yet: $status. waiting a bit more..."
+  let index-=1
+  sleep 15
+fi
+done
+
+if [[ $index -lt 0 ]] ; then
+  echo "$(date) ERROR: Connection timeout to {{ hypervisor }}"
+  exit 1
+else
+  ssh-keyscan -t rsa {{ hypervisor }} | sed -e 's/#.*$//' | sed -e '/^$/d' >> ~/.ssh/known_hosts  # Adding nserver to known_hosts
+fi
+ 
 # Uncomment just in case you need to create bridges and dummy interfaces
 echo "$(date) Creating bridges and dummy interfaces"
 ansible-playbook bridges.yml

@@ -19,4 +19,5 @@
   register: result
 
 - name: "Waiting up to 10min for server"
-  local_action: wait_for host={{ hypervisor }} port=22 delay=30 timeout=600
+  pause:
+    minutes: 10
