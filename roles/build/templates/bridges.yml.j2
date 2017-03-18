@@ -15,12 +15,6 @@
     hypervisor: {{ hypervisor }}
     public_if: {{ public_if }}
     bridges:
-      - { name: datacenter,
-          dummy_if: dummy0 ,
-          macaddr: "52:54:00:7e:27:d0" ,
-          dummy_ip: 10.10.10.1 ,
-          netmask: 255.255.255.0
-        }
       - { name: wan,
           dummy_if: dummy1 ,
           macaddr: "52:54:00:7e:27:d1" ,

@@ -35,5 +35,4 @@ Then, when to get into the container. run the following:
 ssh-keygen -t rsa -b 4096 -C "dev@nuage.io" -f ~/.ssh/id_rsa -q -N ""
 git clone //github.com/ansible/ansible ~/ansible
 git clone https://github.com/p1nrojas/packet-nuagevns ~/packet-nuagevns
-echo "log_path = /var/log/ansible/ansible-packet-nuagevns.log" >> ~/docker/code/packet-nuagevns/ansible.cfg
 ```
