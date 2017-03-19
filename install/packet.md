@@ -12,6 +12,7 @@ systemctl enable docker
 curl -L git.io/weave -o /usr/local/bin/weave
 chmod a+x /usr/local/bin/weave
 reboot
+weave launch --ipalloc-range 192.168.0.0/24
 ip a add 192.168.0.1/24 dev weave
 ```
 
