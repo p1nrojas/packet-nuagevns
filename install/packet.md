@@ -22,6 +22,8 @@ After reboot do as follow.
 mkdir -p ~/github/packet-nuagevns
 cd ~/github/packet-nuagevns
 curl -o Dockerfile https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/Dockerfile
+curl -o vimrc https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/vimrc
+curl -o bash_profile https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/bash_profile
 docker build -t packet-nuagevns .
 ```
 
