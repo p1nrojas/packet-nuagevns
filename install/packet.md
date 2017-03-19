@@ -30,7 +30,7 @@ docker build -t packet-nuagevns .
 When the docker image is finished, do as follow
 
 ```
-docker run -d -i -t --name vns01 -v ~/packet-nuagevns/home:/home/dev -v ~/packet-nuagevns/var:/var -v ~/packet-nuagevnsvar/tmp:/tmp packet-nuagevns  /bin/bash
+docker run -d -i -t --name vns01 -v ~/packet-nuagevns/home:/home/dev -v ~/packet-nuagevns/var:/var -v ~/packet-nuagevns/var/tmp:/tmp packet-nuagevns  /bin/bash
 docker exec -i -t vns01 /bin/bash
 ```
 
