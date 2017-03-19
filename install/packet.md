@@ -5,7 +5,7 @@ Then run the following.
 Caution: This will reboot the server
 
 ```
-yum update
+yum -y update
 curl -fsSL https://get.docker.com/ | sh
 systemctl start docker
 curl -L git.io/weave -o /usr/local/bin/weave
