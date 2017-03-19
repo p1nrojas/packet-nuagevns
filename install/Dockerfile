@@ -9,7 +9,7 @@ RUN yum -y install curl && yum clean all
 RUN yum -y install git && yum clean all
 
 # install sdk from nuage
-RUN pip install --upgrade pip
+# RUN pip install --upgrade pip # last time was broken
 RUN pip install vspk
 RUN pip install pexpect
 RUN pip install packet-python
