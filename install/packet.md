@@ -24,21 +24,14 @@ cd ~/github/packet-nuagevns
 curl -o Dockerfile https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/Dockerfile
 curl -o vimrc https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/vimrc
 curl -o bash_profile https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/bash_profile
-docker build -t packet-nuagevns .
+curl -o setup.sh https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/setup.sh
+docker build -t p1nrojas/packet-nuagevns .
 ```
 
-When the docker image is finished, do as follow
+Create data-only and app container:
 
 ```
-docker run -d -i -t --name vns01 -v ~/packet-nuagevns/home:/home/dev -v ~/packet-nuagevns/var:/var -v ~/packet-nuagevns/var/tmp:/tmp packet-nuagevns  /bin/bash
-docker exec -i -t vns01 /bin/bash
+docker run -d --name vns-data-only p1nrojas/packet-nuagevns true
+docker run -d --volumes-from vns-data-only --name vns-inabox p1nrojas/packet-nuagevns
 ```
-
-Then, when to get into the container. run the following:
-
-```
-ssh-keygen -t rsa -b 4096 -C "dev@nuage.io" -f ~/.ssh/id_rsa -q -N ""
-git clone //github.com/ansible/ansible ~/ansible
-git clone https://github.com/p1nrojas/packet-nuagevns ~/packet-nuagevns
-touch /var/log/ansible/ansible-packet-nuagevns.log
-```
+And play!
