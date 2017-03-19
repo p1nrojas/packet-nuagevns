@@ -1,6 +1,4 @@
-FROM scratch
-MAINTAINER The CentOS Project <cloud-ops@centos.org>
-ADD centos-7.2.1511-docker.tar.xz /
+FROM centos:7.3.1611
 
 # Install all packages
 RUN yum -y install epel-release && yum clean all
@@ -11,7 +9,7 @@ RUN yum -y install curl && yum clean all
 RUN yum -y install git && yum clean all
 
 # install sdk from nuage
-RUN pip install --upgrade pip # last time was broken in centos:latest
+#RUN pip install --upgrade pip # last time was broken in centos:7.3.1611
 RUN pip install vspk
 RUN pip install pexpect
 RUN pip install packet-python
