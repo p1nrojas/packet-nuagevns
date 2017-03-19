@@ -8,6 +8,7 @@ Caution: This will reboot the server
 yum -y update
 curl -fsSL https://get.docker.com/ | sh
 systemctl start docker
+systemctl enable docker
 curl -L git.io/weave -o /usr/local/bin/weave
 chmod a+x /usr/local/bin/weave
 reboot
