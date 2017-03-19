@@ -32,6 +32,9 @@ Create data-only and app container:
 
 ```
 docker run -d --name vns-data-only p1nrojas/packet-nuagevns true
-docker run -d --volumes-from vns-data-only --name vns-inabox p1nrojas/packet-nuagevns
+docker run -d -i -t --volumes-from vns-data-only --name vns-inabox p1nrojas/packet-nuagevns # add /bin/bash to recreate
 ```
-And play!
+...And play!
+```
+docker exec -i -t vns-inabox /bin/bash
+```
