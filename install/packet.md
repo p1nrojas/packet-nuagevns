@@ -11,6 +11,7 @@ systemctl start docker
 curl -L git.io/weave -o /usr/local/bin/weave
 chmod a+x /usr/local/bin/weave
 reboot
+ip a add 192.168.0.1/24 dev weave
 ```
 
 After reboot do as follow. 
