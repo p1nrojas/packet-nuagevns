@@ -1,4 +1,4 @@
-# Prepare your brand new bare metal server in packet.net
+# Prepare your new bare metal server in packet.net
 
 Create your baremetal server type 0 called "ansible"
 Then run the following
