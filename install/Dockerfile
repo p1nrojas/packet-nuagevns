@@ -1,4 +1,6 @@
-FROM centos:latest
+FROM scratch
+MAINTAINER The CentOS Project <cloud-ops@centos.org>
+ADD centos-7.2.1511-docker.tar.xz /
 
 # Install all packages
 RUN yum -y install epel-release && yum clean all
@@ -9,7 +11,7 @@ RUN yum -y install curl && yum clean all
 RUN yum -y install git && yum clean all
 
 # install sdk from nuage
-# RUN pip install --upgrade pip # last time was broken
+RUN pip install --upgrade pip # last time was broken in centos:latest
 RUN pip install vspk
 RUN pip install pexpect
 RUN pip install packet-python
@@ -25,6 +27,10 @@ RUN curl -LSso /home/dev/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 RUN git clone git://github.com/chase/vim-ansible-yaml.git  /home/dev/.vim/bundle/vim-ansible-yaml
 RUN git clone https://github.com/lepture/vim-jinja.git /home/dev/.vim/bundle/vim-jinja
 RUN git clone git://github.com/ansible/ansible.git --recursive /home/dev/ansible
+VOLUME /home/dev/.ssh
+VOLUME /home/dev/packet-nuagevns
+VOLUME /var/log
+VOLUME /tmp
 
 RUN chown -R dev: /home/dev
 USER dev
