@@ -17,20 +17,23 @@ RUN pip install pexpect
 RUN pip install packet-python
 
 # Generate user dev and his files
+VOLUME /home/dev/.ssh
+VOLUME /home/dev/packet-nuagevns
+VOLUME /var/log
+VOLUME /tmp
 RUN useradd dev
 WORKDIR /home/dev
 ENV HOME /home/dev
 ADD vimrc /home/dev/.vimrc
+ADD setup.sh /home/dev/setup.sh
+RUN chmod 755 /home/dev/setup.sh
 ADD bash_profile /home/dev/.bash_profile
 RUN mkdir -p /home/dev/.vim/autoload /home/dev/.vim/bundle
 RUN curl -LSso /home/dev/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 RUN git clone git://github.com/chase/vim-ansible-yaml.git  /home/dev/.vim/bundle/vim-ansible-yaml
 RUN git clone https://github.com/lepture/vim-jinja.git /home/dev/.vim/bundle/vim-jinja
 RUN git clone git://github.com/ansible/ansible.git --recursive /home/dev/ansible
-VOLUME /home/dev/.ssh
-VOLUME /home/dev/packet-nuagevns
-VOLUME /var/log
-VOLUME /tmp
 
 RUN chown -R dev: /home/dev
 USER dev
+CMD /home/dev/setup.sh
