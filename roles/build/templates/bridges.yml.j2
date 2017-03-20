@@ -9,11 +9,12 @@
   gather_facts: no
   remote_user: root
   roles:
-    - _bridges
-#    - _bridges-reset
+    - bridges
+#    - bridges-reset
   vars:
     hypervisor: {{ hypervisor }}
     public_if: {{ public_if }}
+    base_system: <packet-base-system-ip>
     bridges:
       - { name: wan,
           dummy_if: dummy1 ,

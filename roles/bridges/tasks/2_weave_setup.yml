@@ -1,0 +1,15 @@
+---
+- name: yum updates
+  yum: name=* state=latest
+  delegate_to: "{{ hypervisor }}"
+
+- name: Installing docker and weave
+  shell: "{{ item }}"
+  delegate_to: "{{ hypervisor }}"
+  with_items:
+    - 'curl -fsSL https://get.docker.com/ | sh' 
+    - 'systemctl enable docker' 
+    - 'curl -fsSL https://get.docker.com/ | sh' 
+    - 'curl -L git.io/weave -o /usr/local/bin/weave'
+    - 'chmod a+x /usr/local/bin/weave'
+

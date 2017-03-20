@@ -17,6 +17,7 @@ source /home/dev/ansible/hacking/env-setup
 # Creating Packet.net device
 echo "$(date) Creating packet device for SDWAN"
 ansible-playbook packet-create.yml
+ansible-playbook build.yml
 
 # Downloading images
 read -p "Do you want to download the QCOW2 images. It would take a while. Are you sure? " -n 1 -r

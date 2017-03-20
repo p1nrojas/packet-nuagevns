@@ -37,3 +37,11 @@
   with_items:
     - build.yml
     - bridges.yml
+
+- name: Adding base system to bridges.yml
+  replace:
+    destfile: '{{playbook_dir}}/bridges.yml'
+    regexp: '<packet-base-system-ip>'
+    replace: '{{ base_sys.stdout }}'
+    backup: no
+ 

@@ -6,9 +6,9 @@
     - build
   vars:
     ntp_server_list:
-      - 10.10.10.2
+      - 192.168.0.12
     dns_server_list:
-      - 10.10.10.2
+      - 192.168.0.12
     dns_domain: sdn40r7.lab
     hypervisor: "<packet-device-private-ip>"
     public_if: eth0
@@ -21,14 +21,14 @@
           disk_GB: 20 ,
           image_qcow2: /tmp/centos7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
-          ansible_host: 10.10.10.2 ,
-          gateway: 10.10.10.1,
+          ansible_host: 192.168.0.12 ,
+          gateway: 192.168.0.2,
           ntpservers: local , 
           nameservers: [ 8.8.8.8 , 4.4.4.4 ] ,
           interfaces: [
           { name: eth0 ,
-            bridge: datacenter,
-            ip: 10.10.10.2 ,
+            bridge: weave,
+            ip: 192.168.0.12 ,
             netmask: 255.255.255.0 },
           { name: eth1 ,
             bridge: wan,
@@ -48,12 +48,12 @@
           vcpu_num: 8 ,
           image_qcow2: /tmp/vsd40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
-          ansible_host: 10.10.10.10 ,
-          gateway: 10.10.10.1,
+          ansible_host: 192.168.0.20 ,
+          gateway: 192.168.0.2,
           interfaces: [
           { name: eth0 ,
-            bridge: datacenter,
-            ip: 10.10.10.10 ,
+            bridge: weave,
+            ip: 192.168.0.20 ,
             netmask: 255.255.255.0 }
           ]      
          }
@@ -67,12 +67,12 @@
           vcpu_num: 2 ,
           image_qcow2: /tmp/util40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
-          ansible_host: 10.10.10.13 ,
-          gateway: 10.10.10.1,
+          ansible_host: 192.168.0.23 ,
+          gateway: 192.168.0.2,
           interfaces: [
           { name: eth0 ,
-            bridge: datacenter,
-            ip: 10.10.10.13 ,
+            bridge: weave,
+            ip: 192.168.0.23 ,
             netmask: 255.255.255.0 }
           ]      
          }
@@ -86,12 +86,12 @@
           vcpu_num: 2 ,
           image_qcow2: /tmp/stat40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
-          ansible_host: 10.10.10.14 ,
-          gateway: 10.10.10.1,
+          ansible_host: 192.168.0.24 ,
+          gateway: 192.168.0.2,
           interfaces: [
           { name: eth0 ,
-            bridge: datacenter,
-            ip: 10.10.10.14 ,
+            bridge: weave,
+            ip: 192.168.0.24 ,
             netmask: 255.255.255.0 }
           ]      
          }
@@ -109,7 +109,7 @@
           { name: port2 ,
             bridge: inet },
           { name: port3 ,
-            bridge: datacenter}
+            bridge: weave}
           ]      
          }
       - { hostname: head2.sdn40r7.lab,
@@ -126,7 +126,7 @@
           { name: port2 ,
             bridge: inet },
           { name: port3 ,
-            bridge: datacenter}
+            bridge: weave}
           ]      
          }
       - { hostname: nsg1.sdn40r7.lab,
@@ -193,21 +193,21 @@
           inventory: vsc ,
           image_qcow2: /tmp/vsc40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
-          ansible_host: 10.10.10.11 ,
+          ansible_host: 192.168.0.21 ,
           vsd_fqdn: vsd1.sdn40r7.lab,
           system_ip: 1.1.1.2,
           xmpp_username: vsc01,
-          gateway: 10.10.10.1,
+          gateway: 192.168.0.2,
           interfaces: [
           { name: bof ,
-            bridge: datacenter },
+            bridge: weave },
           { name: control ,
-            bridge: datacenter,
-            ip: 10.10.10.11 ,
+            bridge: weave,
+            ip: 192.168.0.21 ,
             prefix: 24 }
           ],
           static_routes: [
-            "0.0.0.0/0 next-hop 10.10.10.1" 
+            "0.0.0.0/0 next-hop 192.168.0.2" 
           ]
          }
       - { hostname: vsc2.sdn40r7.lab,
@@ -215,22 +215,22 @@
           inventory: vsc ,
           image_qcow2: /tmp/vsc40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
-          ansible_host: 10.10.10.12 ,
+          ansible_host: 192.168.0.22 ,
           vsd_fqdn: vsd1.sdn40r7.lab,
           system_ip: 1.1.1.3 ,
           xmpp_username: vsc02,
-          gateway: 10.10.10.1,
+          gateway: 192.168.0.2,
           interfaces: [
           { name: bof ,
-            bridge: datacenter },
+            bridge: weave },
           { name: control ,
-            bridge: datacenter,
-            ip: 10.10.10.12 ,
+            bridge: weave,
+            ip: 192.168.0.22 ,
             prefix: 24 }
           ] ,      
           static_routes: [
-            "0.0.0.0/0 next-hop 10.10.10.1" 
+            "0.0.0.0/0 next-hop 192.168.0.2" 
           ]
          }
     ssh_key:
-    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLN1xnfl2jru9Z4FOovZrKVKGXXlvypchdp5O+XCKpT76gV7zsZib00IR3H8Az4qziCj9gJIlurprWq3xHTSwSz3vP+C8slT0VgXbk+JdSYrC9KFfwcVdItSx18bvjcscDeFCsBYk4+LqIikMIZoBaXbsdIwCOnBMWzBsAa17BGzFaKsnGcgfF/2WaP9WCBKcZnnxj4w0MeU5ekgKCxy+qZoJ7ue9+gpj5NXrLbFsj/EiBTH/8xaTGcMzBxTESOjWylyOYRdlLs9DNb/h+xc6bby6ykm3cOZ278CNpCjALy15z6sUUy3Ei8DuVaOVtBnwRxs0yA/P+9dxtOpOMU4pt4+002Fk6ivAN5QKFrsCp6GYfszqCTpiTB/Zs/6l3ef1fVgCvJVTR5Ceu8clHCt/IIdh2jJmAFL0l1mCdrM9OiJRLY5npKddjOLbbZ7whTo9qCxOi21XWzrc+wM17G2h+t6gJHvx6sP4TmWOYOZL5l1ZxbomuO66jWbElmx3NxGrchNQuHlkkw/THaYlmwmPL7PHQBbNr6dv6hSZ4YfReGRXfPiiYrn5zZkXAAZbTxtuqqhVaXiD7dUSk2QQ0W+xMgwICH+pmnxPoO589wQ9hE3oPG5mfIpsAlLzkiK4I5w2LoGYBft9UfREr5MUxJ/jW1qqgpX+QcAyTLRm2cN5Hfw== dev@nuage.io"
+    - "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"

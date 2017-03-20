@@ -93,6 +93,9 @@
   with_items: "{{ bridges }}"
   when: hypervisor is defined
 
+# Adding weave app at Hypervisor
+- include: 2_weave_setup.yml
+
 - name: "Reboot server"
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
   async: 1
@@ -130,3 +133,20 @@
   delegate_to: "{{ hypervisor }}"
   when: 
     - hypervisor is defined
+
+- name: setting up weave peers
+  shell: "{{ item }}"
+  with_items:
+    - 'weave launch {{ base_system }}--ipalloc-range 192.168.0.0/24'
+    - 'ip a add 192.168.0.2/24 dev weave'  
+  delegate_to: "{{ hypervisor }}"
+
+- name: settings up weave peers from base_system
+  shell: "{{ item }}"
+  with_items:
+    - 'weave stop'
+    - 'weave reset'
+    - 'sleep 10'
+    - 'weave launch {{ hypervisor }}--ipalloc-range 192.168.0.0/24'
+  delegate_to: "{{ base_system }}"
+  

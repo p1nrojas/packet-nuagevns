@@ -27,7 +27,7 @@
           nameservers: [ 8.8.8.8 , 4.4.4.4 ] ,
           interfaces: [
           { name: eth0 ,
-            bridge: datacenter,
+            bridge: weave,
             ip: 192.168.0.12 ,
             netmask: 255.255.255.0 },
           { name: eth1 ,
@@ -52,7 +52,7 @@
           gateway: 192.168.0.2,
           interfaces: [
           { name: eth0 ,
-            bridge: datacenter,
+            bridge: weave,
             ip: 192.168.0.20 ,
             netmask: 255.255.255.0 }
           ]      
@@ -71,7 +71,7 @@
           gateway: 192.168.0.2,
           interfaces: [
           { name: eth0 ,
-            bridge: datacenter,
+            bridge: weave,
             ip: 192.168.0.23 ,
             netmask: 255.255.255.0 }
           ]      
@@ -90,7 +90,7 @@
           gateway: 192.168.0.2,
           interfaces: [
           { name: eth0 ,
-            bridge: datacenter,
+            bridge: weave,
             ip: 192.168.0.24 ,
             netmask: 255.255.255.0 }
           ]      
@@ -109,7 +109,7 @@
           { name: port2 ,
             bridge: inet },
           { name: port3 ,
-            bridge: datacenter}
+            bridge: weave}
           ]      
          }
       - { hostname: head2.sdn40r7.lab,
@@ -126,7 +126,7 @@
           { name: port2 ,
             bridge: inet },
           { name: port3 ,
-            bridge: datacenter}
+            bridge: weave}
           ]      
          }
       - { hostname: nsg1.sdn40r7.lab,
@@ -200,9 +200,9 @@
           gateway: 192.168.0.2,
           interfaces: [
           { name: bof ,
-            bridge: datacenter },
+            bridge: weave },
           { name: control ,
-            bridge: datacenter,
+            bridge: weave,
             ip: 192.168.0.21 ,
             prefix: 24 }
           ],
@@ -222,9 +222,9 @@
           gateway: 192.168.0.2,
           interfaces: [
           { name: bof ,
-            bridge: datacenter },
+            bridge: weave },
           { name: control ,
-            bridge: datacenter,
+            bridge: weave,
             ip: 192.168.0.22 ,
             prefix: 24 }
           ] ,      
@@ -233,4 +233,4 @@
           ]
          }
     ssh_key:
-    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLN1xnfl2jru9Z4FOovZrKVKGXXlvypchdp5O+XCKpT76gV7zsZib00IR3H8Az4qziCj9gJIlurprWq3xHTSwSz3vP+C8slT0VgXbk+JdSYrC9KFfwcVdItSx18bvjcscDeFCsBYk4+LqIikMIZoBaXbsdIwCOnBMWzBsAa17BGzFaKsnGcgfF/2WaP9WCBKcZnnxj4w0MeU5ekgKCxy+qZoJ7ue9+gpj5NXrLbFsj/EiBTH/8xaTGcMzBxTESOjWylyOYRdlLs9DNb/h+xc6bby6ykm3cOZ278CNpCjALy15z6sUUy3Ei8DuVaOVtBnwRxs0yA/P+9dxtOpOMU4pt4+002Fk6ivAN5QKFrsCp6GYfszqCTpiTB/Zs/6l3ef1fVgCvJVTR5Ceu8clHCt/IIdh2jJmAFL0l1mCdrM9OiJRLY5npKddjOLbbZ7whTo9qCxOi21XWzrc+wM17G2h+t6gJHvx6sP4TmWOYOZL5l1ZxbomuO66jWbElmx3NxGrchNQuHlkkw/THaYlmwmPL7PHQBbNr6dv6hSZ4YfReGRXfPiiYrn5zZkXAAZbTxtuqqhVaXiD7dUSk2QQ0W+xMgwICH+pmnxPoO589wQ9hE3oPG5mfIpsAlLzkiK4I5w2LoGYBft9UfREr5MUxJ/jW1qqgpX+QcAyTLRm2cN5Hfw== dev@nuage.io"
+    - "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"
