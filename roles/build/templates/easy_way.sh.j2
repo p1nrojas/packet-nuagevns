@@ -25,17 +25,17 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo "$(date) Starting to download Centos 7 QCOW2 Image"
-    curl -o /tmp/centos7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7.qcow2
+    curl -o /home/dev/images/centos7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7.qcow2
     echo "$(date) Starting to download VSD QCOW2 Image"
-    curl -o /tmp/vsd40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsd40r7.qcow2
+    curl -o /home/dev/images/vsd40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsd40r7.qcow2
     echo "$(date) Starting to download Util QCOW2 Image"
-    curl -o /tmp/util40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/util40r7.qcow2
+    curl -o /home/dev/images/util40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/util40r7.qcow2
     echo "$(date) Starting to download Elastic Search QCOW2 Image"
-    curl -o /tmp/stat40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/stat40r7.qcow2
+    curl -o /home/dev/images/stat40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/stat40r7.qcow2
     echo "$(date) Starting to download NSG QCOW2 Image"
-    curl -o /tmp/nsg40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/nsg40r7.qcow2
+    curl -o /home/dev/images/nsg40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/nsg40r7.qcow2
     echo "$(date) Starting to download VSC QCOW2 IMage"
-    curl -o /tmp/vsc40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsc40r7.qcow2
+    curl -o /home/dev/images/vsc40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsc40r7.qcow2
     echo "$(date) Images have been copied..."
 fi
 

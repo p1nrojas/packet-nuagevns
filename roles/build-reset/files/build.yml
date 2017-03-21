@@ -11,6 +11,7 @@
       - 192.168.0.12
     dns_domain: sdn40r7.lab
     hypervisor: "<packet-device-private-ip>"
+    base_system : "<packet-base-system-ip>"
     public_if: eth0
     servers: 
       - { hostname: ns1.sdn40r7.lab,
@@ -19,7 +20,7 @@
           memory: 4194304 ,
           vcpu_num: 2 ,
           disk_GB: 20 ,
-          image_qcow2: /tmp/centos7.qcow2 ,
+          image_qcow2: /home/dev/images/centos7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           ansible_host: 192.168.0.12 ,
           gateway: 192.168.0.2,
@@ -46,7 +47,7 @@
           Is_NM_enabled: true ,
           memory: 16777216 ,
           vcpu_num: 8 ,
-          image_qcow2: /tmp/vsd40r7.qcow2 ,
+          image_qcow2: /home/dev/images/vsd40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           ansible_host: 192.168.0.20 ,
           gateway: 192.168.0.2,
@@ -65,7 +66,7 @@
           Guestfish: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /tmp/util40r7.qcow2 ,
+          image_qcow2: /home/dev/images/util40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           ansible_host: 192.168.0.23 ,
           gateway: 192.168.0.2,
@@ -84,7 +85,7 @@
           Guestfish: true ,
           memory: 4194304 ,
           vcpu_num: 2 ,
-          image_qcow2: /tmp/stat40r7.qcow2 ,
+          image_qcow2: /home/dev/images/stat40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           ansible_host: 192.168.0.24 ,
           gateway: 192.168.0.2,
@@ -101,7 +102,7 @@
           No_cloud_init: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /tmp/nsg40r7.qcow2 ,
+          image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           interfaces: [
           { name: port1 ,
@@ -118,7 +119,7 @@
           No_cloud_init: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /tmp/nsg40r7.qcow2 ,
+          image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           interfaces: [
           { name: port1 ,
@@ -135,7 +136,7 @@
           No_cloud_init: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /tmp/nsg40r7.qcow2 ,
+          image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           interfaces: [
           { name: port1 ,
@@ -152,7 +153,7 @@
           No_cloud_init: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /tmp/nsg40r7.qcow2 ,
+          image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           interfaces: [
           { name: port1 ,
@@ -168,7 +169,7 @@
           inventory: client ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /tmp/centos7.qcow2 ,
+          image_qcow2: /home/dev/images/centos7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           interfaces: [
           { name: eth0 ,
@@ -180,7 +181,7 @@
           inventory: client ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /tmp/centos7.qcow2 ,
+          image_qcow2: /home/dev/images/centos7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           interfaces: [
           { name: eth0 ,
@@ -191,7 +192,7 @@
       - { hostname: vsc1.sdn40r7.lab,
           description: "Nuage VSC - SDN controller" ,
           inventory: vsc ,
-          image_qcow2: /tmp/vsc40r7.qcow2 ,
+          image_qcow2: /home/dev/images/vsc40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           ansible_host: 192.168.0.21 ,
           vsd_fqdn: vsd1.sdn40r7.lab,
@@ -213,7 +214,7 @@
       - { hostname: vsc2.sdn40r7.lab,
           description: "Nuage VSC - SDN controller" ,
           inventory: vsc ,
-          image_qcow2: /tmp/vsc40r7.qcow2 ,
+          image_qcow2: /home/dev/images/vsc40r7.qcow2 ,
           hypervisor: "<packet-device-private-ip>",
           ansible_host: 192.168.0.22 ,
           vsd_fqdn: vsd1.sdn40r7.lab,

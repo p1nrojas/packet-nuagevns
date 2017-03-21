@@ -14,7 +14,7 @@
   vars:
     hypervisor: {{ hypervisor }}
     public_if: {{ public_if }}
-    base_system: <packet-base-system-ip>
+    base_system: {{ base_system }}
     bridges:
       - { name: wan,
           dummy_if: dummy1 ,

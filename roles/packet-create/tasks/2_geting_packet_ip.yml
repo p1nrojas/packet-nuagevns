@@ -30,17 +30,14 @@
 
 - name: Adding device packet devive private IP to build.yml
   replace:
-    destfile: '{{playbook_dir}}/{{ item }}'
+    destfile: '{{playbook_dir}}/build.yml'
     regexp: '<packet-device-private-ip>'
     replace: '{{ sdwan_sys.stdout }}'
     backup: no
-  with_items:
-    - build.yml
-    - bridges.yml
 
-- name: Adding base system to bridges.yml
+- name: Adding base system to build.yml
   replace:
-    destfile: '{{playbook_dir}}/bridges.yml'
+    destfile: '{{playbook_dir}}/build.yml'
     regexp: '<packet-base-system-ip>'
     replace: '{{ base_sys.stdout }}'
     backup: no

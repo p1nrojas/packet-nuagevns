@@ -39,8 +39,8 @@ Check build.yml and nserver-deploy.yml vars previously to run the follow:
 Now, from your container do the following
 
 ```
-curl http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2 > /tmp/centos7.qcow2
-# Copy your vsd, nsg, util, stat  and vsc qcow2 images as follow: /tmp/vsd40r61.qcow2
+curl http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2 > /home/dev/images/centos7.qcow2
+# Copy your vsd, nsg, util, stat  and vsc qcow2 images as follow: /home/dev/images/vsd40r61.qcow2
 # If you need those images ping me at pinrojas.com
 ansible-playbook build.yml
 ./easy_way.sh
