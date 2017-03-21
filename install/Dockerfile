@@ -17,15 +17,14 @@ RUN pip install packet-python
 # Generate user dev and his files
 RUN useradd dev
 RUN mkdir -p /home/dev/.ssh
+RUN mkdir -p /home/dev/images
 RUN mkdir -p /home/dev/packet-nuagevns
 RUN mkdir -p /var/log/ansible
 RUN chown -R dev:dev /home/dev
 RUN chown -R dev:dev /var/log/ansible
-RUN chown -R dev:dev /tmp
 VOLUME /home/dev/packet-nuagevns
 VOLUME /home/dev/.ssh
 VOLUME /var/log/ansible
-VOLUME /tmp
 WORKDIR /home/dev
 ENV HOME /home/dev
 ADD vimrc /home/dev/.vimrc
