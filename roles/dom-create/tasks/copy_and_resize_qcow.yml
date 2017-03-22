@@ -1,5 +1,14 @@
 # Copy qcow2 image to target host
 
+- name: Creating image folder at remote server
+  file:
+    path: "{{ image_qcow2 }} | regex_replace('^(.+)/[^/]+$', '\\1')"
+    state: directory
+    mode: 0755
+  delegate_to: "{{ hypervisor }}"
+  when:
+    - hypervisor is defined
+
 - name: Checking in QCOW2 base image file is was already copied before trying resizing
   stat:
     path: "{{ image_qcow2 }}"
