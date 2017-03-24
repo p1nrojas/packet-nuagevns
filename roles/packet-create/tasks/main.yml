@@ -5,3 +5,15 @@
 
 # Obtaining IP address
  - include: 2_geting_packet_ip.yml
+
+ # Bridges and Dummies
+ - include: 3_bridges_and_dummies.yml
+
+ # Adding weave app at Hypervisor
+ - include: 4_weave_setup.yml
+
+ # Ending process
+ - include: 5_reboot_checking_bridges.yml
+
+ # Ending process
+ - include: 6_ending.yml

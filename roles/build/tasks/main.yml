@@ -22,7 +22,7 @@
     - stat-deploy.yml
     - vsd-deploy.yml
     - nuage-install.yml
-    - bridges.yml
+#    - bridges.yml
     - reset-all-domains.yml
     - packet-create.yml
     - packet-reset.yml

@@ -1,5 +1,9 @@
 ---
+# purpose: Create dummies interfaces abd bridges.
 # purpose: Create devices in packet.net site.
+# CAUTION: WIll reboot the KVM server
+# CAUTION: It would change your selinux, forwarding and iptables seetings
+# CAUTION: Will disable NetworkManager and firewall
 # Author: Mauricio Rojas / pinrojas.com
  
 - hosts: localhost
@@ -8,8 +12,34 @@
   vars:
     packet_token: MaKWKw8AxUqSgY57JKj1y7eM7qW4o9Sd
     project_id: bed437ce-6ae7-4b84-a8e0-163e13a12a32
-    bmetal_plan: baremetal_2
+    bmetal_plan: baremetal_1
     device_name: sdwan01
     base_system: ansible
+    public_if: {{ public_if }}
+    bridges:
+      - { name: wan,
+          dummy_if: dummy0 ,
+          macaddr: "52:54:00:7e:27:d1" ,
+          dummy_ip: 10.250.250.1 ,
+          netmask: 255.255.255.0
+        }
+      - { name: inet,
+          dummy_if: dummy1 ,
+          macaddr: "52:54:00:7e:27:d2" ,
+          dummy_ip: 80.80.80.1 ,
+          netmask: 255.255.255.0
+        }
+      - { name: branch1,
+          dummy_if: dummy2 ,
+          macaddr: "52:54:00:7e:27:d1" ,
+          dummy_ip: 172.16.10.100 ,
+          netmask: 255.255.255.0
+        }
+      - { name: branch2,
+          dummy_if: dummy3 ,
+          macaddr: "52:54:00:7e:27:d1" ,
+          dummy_ip: 172.16.20.100 ,
+          netmask: 255.255.255.0
+        }
   roles:
     - packet-create

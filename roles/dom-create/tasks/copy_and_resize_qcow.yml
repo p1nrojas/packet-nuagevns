@@ -2,7 +2,7 @@
 
 - name: Creating image folder at remote server
   file:
-    path: "{{ image_qcow2 }} | regex_replace('^(.+)/[^/]+$', '\\1')"
+    path: "{{ image_qcow2  | regex_replace('^(.+)/[^/]+$', '\\1') }}"
     state: directory
     mode: 0755
   delegate_to: "{{ hypervisor }}"
@@ -17,17 +17,28 @@
   when: 
     - hypervisor is defined
 
-- name: "copy image to hypervisor from local path: {{ image_qcow2 }} to remote path: {{ image_qcow2 }}"
-  copy:
-    src: "{{ image_qcow2 }}"
+
+- name: Copy image from url to {{ image_qcow2 }}
+  get_url:
+    url: "{{ image_url }}"
     dest: "{{ image_qcow2 }}"
-    owner: "{{ libvirt.user }}"
-    group: "{{ libvirt.group }}"
     mode: 0666
   delegate_to: "{{ hypervisor }}"
   when:
     - hypervisor is defined
     - qcow2_resize.stat.exists == False
+
+#- name: "copy image to hypervisor from local path: {{ image_qcow2 }} to remote path: {{ image_qcow2 }}"
+#  copy:
+#    src: "{{ image_qcow2 }}"
+#    dest: "{{ image_qcow2 }}"
+#    owner: "{{ libvirt.user }}"
+#    group: "{{ libvirt.group }}"
+#    mode: 0666
+#  delegate_to: "{{ hypervisor }}"
+#  when:
+#    - hypervisor is defined
+#    - qcow2_resize.stat.exists == False
 
 - name: Checking in VM image file is was already copied before
   stat:
@@ -58,18 +69,33 @@
 
 # Resize Image
 
-- name: Copy qcow2 image for resizing
-  copy:
-    src: "{{ image_qcow2 }}"
+
+- name: Copy image from url to {{ image_qcow2 }} for resizing
+  get_url:
+    url: "{{ image_url }}"
     dest: "{{ image_qcow2 }}"
     owner: "{{ libvirt.user }}"
     group: "{{ libvirt.group }}"
     mode: 0666
   delegate_to: "{{ hypervisor }}"
-  when: 
+  when:
     - hypervisor is defined
     - disk_GB is defined
     - qcow2_resize.stat.exists == False
+
+
+#- name: Copy qcow2 image for resizing
+#  copy:
+#    src: "{{ image_qcow2 }}"
+#    dest: "{{ image_qcow2 }}"
+#    owner: "{{ libvirt.user }}"
+#    group: "{{ libvirt.group }}"
+#    mode: 0666
+#  delegate_to: "{{ hypervisor }}"
+#  when: 
+#    - hypervisor is defined
+#    - disk_GB is defined
+#    - qcow2_resize.stat.exists == False
 
 - name: Change user and group of the file to image base file
   file: path={{ image_qcow2 }} owner={{ libvirt.user }} group={{ libvirt.group }}

@@ -1,0 +1,26 @@
+---
+- name: yum updates
+  yum: name=* state=latest
+  delegate_to: "{{ sdwan_sys.stdout }}"
+
+- name: Install additional packages to modify qcow image and run as VM - RedHat Host
+  yum: name={{ item }} state=present
+  with_items:
+   - qemu-kvm
+   - libvirt
+   - bridge-utils
+  when:
+    - ansible_os_family == "RedHat"
+  delegate_to: "{{ sdwan_sys.stdout }}"
+
+- name: Installing docker and weave
+  shell: "{{ item }}"
+  delegate_to: "{{ sdwan_sys.stdout }}"
+  with_items:
+    - 'curl -fsSL https://get.docker.com/ | sh' 
+    - 'systemctl enable docker' 
+    - 'systemctl start docker' 
+    - 'curl -fsSL https://get.docker.com/ | sh' 
+    - 'curl -L git.io/weave -o /usr/local/bin/weave'
+    - 'chmod a+x /usr/local/bin/weave'
+

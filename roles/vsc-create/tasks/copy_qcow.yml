@@ -7,17 +7,27 @@
   when:
     - hypervisor is defined
 
-- name: "copy image to hypervisor from local path: {{ image_qcow2 }} to remote path: {{ image_qcow2 }}"
-  copy:
-    src: "{{ image_qcow2 }}"
+- name: Copy image from url to {{ image_qcow2 }}
+  get_url:
+    url: "{{ image_url }}"
     dest: "{{ image_qcow2 }}"
-    owner: "{{ libvirt.user }}"
-    group: "{{ libvirt.group }}"
     mode: 0666
   delegate_to: "{{ hypervisor }}"
   when:
     - hypervisor is defined
     - qcow2_resize.stat.exists == False
+
+#- name: "copy image to hypervisor from local path: {{ image_qcow2 }} to remote path: {{ image_qcow2 }}"
+#  copy:
+#    src: "{{ image_qcow2 }}"
+#    dest: "{{ image_qcow2 }}"
+#    owner: "{{ libvirt.user }}"
+#    group: "{{ libvirt.group }}"
+#    mode: 0666
+#  delegate_to: "{{ hypervisor }}"
+#  when:
+#    - hypervisor is defined
+#    - qcow2_resize.stat.exists == False
 
 - name: Checking in VM image file is was already copied before
   stat:

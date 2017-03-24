@@ -3,46 +3,6 @@
 # Use with caution!
 # Auhor: Mauricio Rojas / pinrojas.com
 
-## Here we go!
-echo "$(date) Here we go!"
-
-# Uncomment just in case you need to build your host and group vars and YML files
-# echo "$(date) Creating inventory, group and host vars and YML files"
-# ansible-playbook build.yml
-
-# Activating hacking in ansible
-echo "$(date) Activating hacking in ansible"
-source /home/dev/ansible/hacking/env-setup
-
-# Creating Packet.net device
-echo "$(date) Creating packet device for SDWAN"
-ansible-playbook packet-create.yml
-ansible-playbook build.yml
-
-# Downloading images
-read -p "Do you want to download the QCOW2 images. It would take a while. Are you sure? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    echo "$(date) Starting to download Centos 7 QCOW2 Image"
-    curl -o /home/dev/images/centos7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7.qcow2
-    echo "$(date) Starting to download VSD QCOW2 Image"
-    curl -o /home/dev/images/vsd40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsd40r7.qcow2
-    echo "$(date) Starting to download Util QCOW2 Image"
-    curl -o /home/dev/images/util40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/util40r7.qcow2
-    echo "$(date) Starting to download Elastic Search QCOW2 Image"
-    curl -o /home/dev/images/stat40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/stat40r7.qcow2
-    echo "$(date) Starting to download NSG QCOW2 Image"
-    curl -o /home/dev/images/nsg40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/nsg40r7.qcow2
-    echo "$(date) Starting to download VSC QCOW2 IMage"
-    curl -o /home/dev/images/vsc40r7.qcow2 https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsc40r7.qcow2
-    echo "$(date) Images have been copied..."
-fi
-
-# Uncomment just in case you need to create bridges and dummy interfaces
-echo "$(date) Creating bridges and dummy interfaces"
-ansible-playbook bridges.yml
-
 # Start creating your servers
 echo "$(date) Start creating your servers"
 ansible-playbook -i hosts nuage-install.yml

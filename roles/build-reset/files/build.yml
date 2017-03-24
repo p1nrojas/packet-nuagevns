@@ -10,9 +10,9 @@
     dns_server_list:
       - 192.168.0.12
     dns_domain: sdn40r7.lab
-    hypervisor: "<packet-device-private-ip>"
-    base_system : "<packet-base-system-ip>"
-    public_if: eth0
+    hypervisor: 192.168.0.2
+    base_system : 192.168.0.1
+    public_if: bond0
     servers: 
       - { hostname: ns1.sdn40r7.lab,
           description: "name, ntp and dhcp server" ,
@@ -21,7 +21,8 @@
           vcpu_num: 2 ,
           disk_GB: 20 ,
           image_qcow2: /home/dev/images/centos7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7.qcow2" ,
+          hypervisor: "192.168.0.2",
           ansible_host: 192.168.0.12 ,
           gateway: 192.168.0.2,
           ntpservers: local , 
@@ -48,7 +49,8 @@
           memory: 16777216 ,
           vcpu_num: 8 ,
           image_qcow2: /home/dev/images/vsd40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsd40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           ansible_host: 192.168.0.20 ,
           gateway: 192.168.0.2,
           interfaces: [
@@ -67,7 +69,8 @@
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/util40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/util40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           ansible_host: 192.168.0.23 ,
           gateway: 192.168.0.2,
           interfaces: [
@@ -86,7 +89,8 @@
           memory: 4194304 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/stat40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/stat40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           ansible_host: 192.168.0.24 ,
           gateway: 192.168.0.2,
           interfaces: [
@@ -103,7 +107,8 @@
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/nsg40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           interfaces: [
           { name: port1 ,
             bridge: wan },
@@ -120,7 +125,8 @@
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/nsg40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           interfaces: [
           { name: port1 ,
             bridge: wan },
@@ -137,7 +143,8 @@
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/nsg40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           interfaces: [
           { name: port1 ,
             bridge: wan },
@@ -154,7 +161,8 @@
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/nsg40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           interfaces: [
           { name: port1 ,
             bridge: wan },
@@ -170,7 +178,8 @@
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/centos7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7.qcow2" ,
+          hypervisor: "192.168.0.2",
           interfaces: [
           { name: eth0 ,
             bridge: branch1 }
@@ -182,7 +191,8 @@
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/centos7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7.qcow2" ,
+          hypervisor: "192.168.0.2",
           interfaces: [
           { name: eth0 ,
             bridge: branch2 }
@@ -193,7 +203,8 @@
           description: "Nuage VSC - SDN controller" ,
           inventory: vsc ,
           image_qcow2: /home/dev/images/vsc40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsc40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           ansible_host: 192.168.0.21 ,
           vsd_fqdn: vsd1.sdn40r7.lab,
           system_ip: 1.1.1.2,
@@ -215,7 +226,8 @@
           description: "Nuage VSC - SDN controller" ,
           inventory: vsc ,
           image_qcow2: /home/dev/images/vsc40r7.qcow2 ,
-          hypervisor: "<packet-device-private-ip>",
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/vsc40r7.qcow2" ,
+          hypervisor: "192.168.0.2",
           ansible_host: 192.168.0.22 ,
           vsd_fqdn: vsd1.sdn40r7.lab,
           system_ip: 1.1.1.3 ,
