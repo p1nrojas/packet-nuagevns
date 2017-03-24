@@ -5,7 +5,7 @@ Then run the following.
 
 ```
 yum -y update
-curl -fsSL https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/install.sh | sh
+curl -fsSL https://git.io/vSkGs | sh
 ```
 
 Create app container:
