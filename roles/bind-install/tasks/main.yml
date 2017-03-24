@@ -1,6 +1,12 @@
 # roles/bind_install/tasks/main.yml
 ---
 
+- name: "Waiting until 7.5min for server to come back"
+  wait_for
+    port=22
+    delay=30
+    timeout=450
+
 # Initialise distribution-specific variables
 - name: Pull facts
   action: setup
