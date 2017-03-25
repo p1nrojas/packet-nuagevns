@@ -29,6 +29,8 @@ WORKDIR /home/dev
 ENV HOME /home/dev
 ADD vimrc /home/dev/.vimrc
 ADD setup.sh /home/dev/setup.sh
+ADD .packet_token /home/dev/.packet_token
+ADD .packet_project_id /home/dev/.packet_project_id
 RUN chmod 755 /home/dev/setup.sh
 ADD bash_profile /home/dev/.bash_profile
 RUN mkdir -p /home/dev/.vim/autoload /home/dev/.vim/bundle
