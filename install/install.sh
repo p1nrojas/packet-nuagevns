@@ -43,5 +43,19 @@ docker build -t p1nrojas/packet-nuagevns . >> /tmp/install.log
 
 #Create data-only container
 echo "$(date) Creating data-only container..."
-docker run -d --name vns-data-only p1nrojas/packet-nuagevns true >> /tmp/install.log
+docker run -d --name vns-data-only p1nrojas/packet-nuagevns true
+
+echo "$(date) loading app files..."
+docker run -d -i -t --volumes-from vns-data-only --name vns-packet p1nrojas/packet-nuagevns
+
+echo "$(date) Copying public key to ansible..."
+docker cp vns-data-only:/home/dev/.ssh/id_rsa.pub .
+cat id_rsa.pub >> ~/.ssh/authorized_keys ; rm id_rsa.pub
+
+echo "$(date) Creating bare_metal server and preparing weave..."
+docker run --rm --volumes-from vns-data-only p1nrojas/packet-nuagevns /home/dev/packet-nuagevns/packet.sh
+
+echo "$(date) Installing Nuage VNS..."
+docker run --rm --volumes-from vns-data-only --network weave --ip 192.168.0.101 p1nrojas/packet-nuagevns /home/dev/packet-nuagevns/nuage.sh
+
 echo "$(date) done!"
