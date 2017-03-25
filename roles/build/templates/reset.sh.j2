@@ -1,0 +1,15 @@
+#!/bin/bash
+# Purpose: Run all playbooks at once
+# Use with caution!
+# Auhor: Mauricio Rojas / pinrojas.com
+
+## Here we go!
+echo "$(date) Here we go!"
+
+# Activating hacking in ansible
+echo "$(date) Activating hacking in ansible"
+source /home/dev/ansible/hacking/env-setup
+
+# Creating Packet.net device
+ansible-playbook packet-reset.yml
+

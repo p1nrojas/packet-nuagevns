@@ -58,3 +58,13 @@ dns:
     - {{ server }}
 {% endfor %}
 {% endif %}
+
+{% if item.pat_rules is defined %}
+pat_rules:
+{% for rule in item.pat_rules %}
+  - { interface: {{ rule.interface }} ,
+      protocol: {{ rule.protocol }} ,
+      dest_port: {{ rule.dest_port }}
+    } 
+{% endfor %}
+{% endif %}

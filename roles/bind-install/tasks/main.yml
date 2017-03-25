@@ -1,11 +1,10 @@
 # roles/bind_install/tasks/main.yml
 ---
 
-- name: "Waiting until 7.5min for server to come back"
-  wait_for
-    port=22
-    delay=30
-    timeout=450
+- name: "Waiting until 5min for server to come back"
+  local_action: wait_for port=22 host="{{ ansible_host }}" search_regex=OpenSSH delay=30 timeout=300
+  remote_user: dev
+  become: false
 
 # Initialise distribution-specific variables
 - name: Pull facts

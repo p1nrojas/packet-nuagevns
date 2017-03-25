@@ -7,19 +7,19 @@
   template: src=vsc.j2 backup=no dest={{ playbook_dir }}/host_vars/{{ item.hostname }}
   with_items: "{{ vsc_controllers }}"
 
-- name: Creating bash files packet.sh to run all playbooks at once
-  template: src=packet.sh.j2 backup=no dest={{ playbook_dir }}/packet.sh
+- name: Creating bash files {{ item }} to run all playbooks at once
+  template: src={{ item }}.j2 backup=no dest={{ playbook_dir }}/{{ item }}
+  with_items:
+    - nuage.sh
+    - packet.sh
+    - reset.sh
 
-- name: Creating bash files nuage.sh to run all playbooks at once
-  template: src=nuage.sh.j2 backup=no dest={{ playbook_dir }}/nuage.sh
-
-- name: Chnage permissions to packet.sh
+- name: Change permissions to packet.sh
   file:
-    path: "{{ playbook_dir }}/packet.sh"
+    path: "{{ playbook_dir }}/{{ item }}"
     mode: 0755
-
-- name: Chnage permissions to nuage.sh
-  file:
-    path: "{{ playbook_dir }}/nuage.sh"
-    mode: 0755
+  with_items:
+    - nuage.sh
+    - packet.sh
+    - reset.sh
 

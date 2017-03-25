@@ -1,0 +1,13 @@
+---
+
+- name: Creating PAT rules thru iptables 
+  iptables:
+    table: nat
+    chain: PREROUTING
+    in_interface: "{{ item.interface }}"
+    protocol: "{{ item.protocol }}"
+    destination_port: "{{ item.dest_port }}"
+    jump: DNAT
+    to_destination: "{{ hypervisor }}:{{ item.dest_port }}"
+    state: present
+  with_items: "{{ pat_rules }}"

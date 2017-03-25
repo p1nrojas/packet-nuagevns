@@ -10,9 +10,9 @@
     dns_server_list:
       - 192.168.0.12
     dns_domain: sdn40r7.lab
-    hypervisor: 192.168.0.2
-    base_system : 192.168.0.1
     public_if: bond0
+    packet_token: "{{ lookup('file', '/home/dev/.packet_token') }}"
+    project_id: "{{ lookup('file', '/home/dev/.packet_project_id') }}"
     servers: 
       - { hostname: ns1.sdn40r7.lab,
           description: "name, ntp and dhcp server" ,
@@ -40,7 +40,7 @@
             bridge: inet,
             ip: 80.80.80.2 ,
             netmask: 255.255.255.0 }
-          ]      
+          ]
          }
       - { hostname: vsd1.sdn40r7.lab,
           description: "Nuage Stand-Alone VSD, management plane" ,
@@ -58,6 +58,12 @@
             bridge: weave,
             ip: 192.168.0.20 ,
             netmask: 255.255.255.0 }
+          ], 
+          pat_rules: [
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 8443
+          }
           ]      
          }
       - { hostname: util.sdn40r7.lab,
@@ -78,6 +84,20 @@
             bridge: weave,
             ip: 192.168.0.23 ,
             netmask: 255.255.255.0 }
+          ],      
+          pat_rules: [
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 11443 
+          },
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 12443 
+          },
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 29090 
+          }
           ]      
          }
       - { hostname: stat.sdn40r7.lab,
@@ -98,6 +118,12 @@
             bridge: weave,
             ip: 192.168.0.24 ,
             netmask: 255.255.255.0 }
+          ],
+          pat_rules: [
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 39090 
+          }
           ]      
          }
       - { hostname: head1.sdn40r7.lab,
@@ -220,7 +246,17 @@
           ],
           static_routes: [
             "0.0.0.0/0 next-hop 192.168.0.2" 
-          ]
+          ],
+          pat_rules: [
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 56213 
+          },
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 6633 
+          }
+          ]      
          }
       - { hostname: vsc2.sdn40r7.lab,
           description: "Nuage VSC - SDN controller" ,

@@ -1,6 +1,11 @@
 ---
 # tasks file for ntp-install
 
+- name: "Waiting until 5min for server to come back"
+  local_action: wait_for port=22 host="{{ ansible_host }}" search_regex=OpenSSH delay=30 timeout=300
+  remote_user: dev
+  become: false
+
 - name: install ntp
   yum: name=ntp state=present
 
