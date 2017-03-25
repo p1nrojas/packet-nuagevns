@@ -8,6 +8,7 @@ if [ ! -f /var/log/ansible/ansible-packet-nuagevns.log ]; then
     /bin/bash
 else
     echo "Caution: user data detected. skipping setup. Next time override CMD"
+    /bin/bash
 fi
 
     
