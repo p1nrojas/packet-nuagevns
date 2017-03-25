@@ -1,6 +1,7 @@
 - name: "Applying: iptables -t nat -A POSTROUTING -o {{ public_if }} -j MASQUERADE"
   command: "{{ item }}"
   with_items:
+    - 'iptables -F'
     - 'iptables -t nat -A POSTROUTING -o {{ public_if }} -j MASQUERADE'
     - 'iptables-save'
   ignore_errors: yes
