@@ -48,6 +48,8 @@ docker run -d --name vns-data-only p1nrojas/packet-nuagevns true
 echo "$(date) loading app files..."
 docker run -d -i -t --volumes-from vns-data-only --name vns-packet p1nrojas/packet-nuagevns
 
+sleep 30
+
 echo "$(date) Copying public key to ansible..."
 docker cp vns-data-only:/home/dev/.ssh/id_rsa.pub .
 cat id_rsa.pub >> ~/.ssh/authorized_keys ; rm id_rsa.pub
