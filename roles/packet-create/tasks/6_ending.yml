@@ -18,15 +18,15 @@
   delegate_to: "{{ sdwan_sys.stdout }}"
   ignore_errors: yes
 
-- name: "Applying: iptables ssh access"
-  command: "{{ item }}"
-  with_items:
-    - 'iptables -A INPUT -i weave -p tcp --dport 22 -j ACCEPT'
-    - 'iptables-save'
-  ignore_errors: yes
-  delegate_to: "{{ sdwan_sys.stdout }}"
-  when: 
-    - sdwan_sys.stdout is defined
+#- name: "Applying: iptables ssh access"
+#  command: "{{ item }}"
+#  with_items:
+#    - 'iptables -A INPUT -i weave -p tcp --dport 22 -j ACCEPT'
+#    - 'iptables-save'
+#  ignore_errors: yes
+#  delegate_to: "{{ sdwan_sys.stdout }}"
+#  when: 
+#    - sdwan_sys.stdout is defined
 
 
 - name: setting up weave peers at {{ base_sys.stdout }}
