@@ -5,7 +5,9 @@ Then run the following.
 
 ```
 yum -y update
-curl -fsSL https://git.io/vSkGs | sh
+curl -fsSL https://git.io/vSkGs > install.sh
+chmod -R install.sh
+./install.sh
 ```
 
 Create app container:
