@@ -6,6 +6,8 @@
 # Start creating your servers
 echo "$(date) Start Nuage VSP servers and software"
 
+cd /home/dev/packet-nuagevns
+
 ansible-playbook -i hosts nuage-install.yml
 
 ansible-playbook -i hosts nserver-deploy.yml

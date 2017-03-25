@@ -1,7 +1,6 @@
 - name: "Applying: iptables -t nat -A POSTROUTING -o {{ public_if }} -j MASQUERADE"
   command: "{{ item }}"
   with_items:
-    - 'iptables -F'
     - 'iptables -t nat -A POSTROUTING -o {{ public_if }} -j MASQUERADE'
     - 'iptables-save'
   ignore_errors: yes
@@ -9,14 +8,34 @@
   when: 
     - sdwan_sys.stdout is defined
 
-- name: setting up weave peers
+- name: setting up weave peers at {{ sdwan_sys.stdout }}
+  shell: "{{ item }}"
+  with_items:
+    - 'weave stop'
+    - 'weave launch {{ base_sys.stdout }} --ipalloc-range 192.168.0.0/24'
+    - 'ip a add 192.168.0.2/24 dev weave'  
+  delegate_to: "{{ sdwan_sys.stdout }}"
+  ignore_errors: yes
+
+- name: "Applying: iptables ssh access"
+  command: "{{ item }}"
+  with_items:
+    - 'iptables -A INPUT -i weave -p tcp --dport 22 -j ACCEPT'
+    - 'iptables-save'
+  ignore_errors: yes
+  delegate_to: "{{ sdwan_sys.stdout }}"
+  when: 
+    - sdwan_sys.stdout is defined
+
+
+- name: setting up weave peers at {{ base_sys.stdout }}
   shell: "{{ item }}"
   with_items:
     - 'weave stop'
 #    - 'weave reset'
-    - 'weave launch {{ base_sys.stdout }} --ipalloc-range 192.168.0.0/24'
-    - 'ip a add 192.168.0.2/24 dev weave'  
-  delegate_to: "{{ sdwan_sys.stdout }}"
+    - 'weave launch {{ sdwan_sys.stdout }} --ipalloc-range 192.168.0.0/24'
+    - 'ip a add 192.168.0.1/24 dev weave'  
+  delegate_to: "{{ base_sys.stdout }}"
   ignore_errors: yes
 
   

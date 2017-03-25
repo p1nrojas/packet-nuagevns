@@ -10,4 +10,5 @@
     jump: DNAT
     to_destination: "{{ hypervisor }}:{{ item.dest_port }}"
     state: present
+  delegate_to: "{{ hypervisor }}"
   with_items: "{{ pat_rules }}"

@@ -10,6 +10,8 @@ echo "$(date) Here we go!"
 echo "$(date) Activating hacking in ansible"
 source /home/dev/ansible/hacking/env-setup
 
+cd /home/dev/packet-nuagevns
+
 # Creating Packet.net device
 ansible-playbook packet-reset.yml
 
