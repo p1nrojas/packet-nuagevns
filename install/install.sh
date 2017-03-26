@@ -60,4 +60,10 @@ docker run --rm --volumes-from vns-data-only p1nrojas/packet-nuagevns /home/dev/
 echo "$(date) Installing Nuage VNS..."
 docker run --rm --volumes-from vns-data-only --network weave --ip 192.168.0.101 p1nrojas/packet-nuagevns /home/dev/packet-nuagevns/nuage.sh
 
+echo
+echo
+echo "================================================"
+echo "Summary Results"
+docker run --rm --volumes-from vns-data-only p1nrojas/packet-nuagevns cat /home/dev/.summary_results
+
 echo "$(date) done!"
