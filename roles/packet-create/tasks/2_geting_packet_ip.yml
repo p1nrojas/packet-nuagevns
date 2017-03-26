@@ -20,17 +20,5 @@
 - name: Verification Result Success Status
   debug: var=sdwan_sys.stdout
 
-- name: Adding device packet devive private IP to build.yml
-  replace:
-    destfile: '{{playbook_dir}}/build.yml'
-    regexp: '<packet-device-private-ip>'
-    replace: '{{ sdwan_sys.stdout }}'
-    backup: no
-
-- name: Adding base system to build.yml
-  replace:
-    destfile: '{{playbook_dir}}/build.yml'
-    regexp: '<packet-base-system-ip>'
-    replace: '{{ base_sys.stdout }}'
-    backup: no
- 
+- name: Adding details to summary file
+  local_action: shell echo "Get access VSD at https://{{ sdwan_sys.stdout }}:8443" >> /home/dev/.summary_results
