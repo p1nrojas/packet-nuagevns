@@ -11,4 +11,5 @@
     to_destination: "{{ ansible_host }}:{{ item.dest_port }}"
     state: present
   delegate_to: "{{ hypervisor }}"
+  when: pat_rules is defined
   with_items: "{{ pat_rules }}"
