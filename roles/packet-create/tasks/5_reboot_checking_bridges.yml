@@ -2,6 +2,7 @@
   shell: systemctl restart network
   delegate_to: "{{ sdwan_sys.stdout }}"
   when: sdwan_sys.stdout is defined
+  ignore_errors: yes
 
 - name: Check if there are dummy interfaces
   shell: ip addr | grep dummy | grep -v grep
@@ -11,7 +12,7 @@
   delegate_to: "{{ sdwan_sys.stdout }}"
   when: sdwan_sys.stdout is defined
 
-- name: Report status of Apache
+- name: Report status of dummies
   fail:
     msg: |
       Dummy interface is not running.
