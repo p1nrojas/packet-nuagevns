@@ -8,7 +8,7 @@
     protocol: "{{ item.protocol }}"
     destination_port: "{{ item.dest_port }}"
     jump: DNAT
-    to_destination: "{{ hypervisor }}:{{ item.dest_port }}"
+    to_destination: "{{ ansible_host }}:{{ item.dest_port }}"
     state: present
   delegate_to: "{{ hypervisor }}"
   with_items: "{{ pat_rules }}"
