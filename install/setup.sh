@@ -4,7 +4,6 @@ if [ ! -f /var/log/ansible/ansible-packet-nuagevns.log ]; then
     echo "There is not data. Proceed setup"
     git clone https://github.com/p1nrojas/packet-nuagevns ~/packet-nuagevns
     touch /var/log/ansible/ansible-packet-nuagevns.log
-    touch /home/dev/.summary_results
     ssh-keygen -t rsa -b 4096 -C "dev@nuage.io" -f ~/.ssh/id_rsa -q -N ""
     cd /home/dev/packet-nuagevns
     ansible-playbook build.yml
