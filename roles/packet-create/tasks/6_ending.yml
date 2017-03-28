@@ -32,7 +32,8 @@
 - name: setting up weave peers at {{ base_sys.stdout }}
   shell: "{{ item }}"
   with_items:
-    - 'weave stop'
+#    - 'weave stop'
+    - 'weave reset'
     - 'sleep 10'
     - 'weave launch {{ sdwan_sys.stdout }} --ipalloc-range 192.168.0.0/24'
     - 'ip a add 192.168.0.1/24 dev weave'  
