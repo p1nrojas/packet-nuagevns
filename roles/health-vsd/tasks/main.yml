@@ -1,0 +1,11 @@
+- name: Get monit summary for all stats process on VSD
+  vsd_monit:
+    name: "{{vsd_stats}}"
+    state: summary
+  register: chk
+  remote_user: root
+
+- name: Verify vsd-stats-status program on VSD
+  fail: msg="Cannot verify {{ item }}. Program not running"
+  when: chk['state']['{{ item }}'] != "status ok"
+  with_items: "{{vsd_stats}}"

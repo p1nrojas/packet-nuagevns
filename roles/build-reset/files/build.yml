@@ -13,6 +13,9 @@
     public_if: bond0
     packet_token: "{{ lookup('file', '/home/dev/.packet_token') }}"
     project_id: "{{ lookup('file', '/home/dev/.packet_project_id') }}"
+    nuage_license_key: "{{ lookup('file', '/home/dev/.nuage_license_key') }}"
+    ssh_key:
+    - "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"
     servers: 
       - { hostname: ns1.sdn40r7.lab,
           description: "name, ntp and dhcp server" ,
@@ -203,8 +206,8 @@
           inventory: client ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /home/dev/images/centos7.qcow2 ,
-          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7.qcow2" ,
+          image_qcow2: /home/dev/images/centos7-reverse.qcow2 ,
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7-reverse.qcow2" ,
           hypervisor: "192.168.0.2",
           interfaces: [
           { name: eth0 ,
@@ -216,12 +219,30 @@
           inventory: client ,
           memory: 2097152 ,
           vcpu_num: 2 ,
-          image_qcow2: /home/dev/images/centos7.qcow2 ,
-          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7.qcow2" ,
+          image_qcow2: /home/dev/images/centos7-reverse.qcow2 ,
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7-reverse.qcow2" ,
           hypervisor: "192.168.0.2",
           interfaces: [
           { name: eth0 ,
             bridge: branch2 }
+          ]
+         }
+      - { hostname: virt.sdn40r7.lab,
+          description: "webvirtmgr service" ,
+          inventory: webvirtmgr ,
+          memory: 4194304 ,
+          vcpu_num: 2 ,
+          disk_GB: 20 ,
+          image_qcow2: /home/dev/images/centos7.qcow2 ,
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7-reverse.qcow2" ,
+          hypervisor: "192.168.0.2",
+          ansible_host: 192.168.0.30 ,
+          gateway: 192.168.0.2,
+          interfaces: [
+          { name: eth0 ,
+            bridge: weave,
+            ip: 192.168.0.30 ,
+            netmask: 255.255.255.0 }
           ]
          }
     vsc_controllers:
@@ -279,7 +300,15 @@
           ] ,      
           static_routes: [
             "0.0.0.0/0 next-hop 192.168.0.2" 
+          ],
+          pat_rules: [
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 56213 
+          },
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 6633 
+          }
           ]
          }
-    ssh_key:
-    - "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"

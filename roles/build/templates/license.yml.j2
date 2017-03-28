@@ -1,0 +1,13 @@
+---
+
+- hosts:
+    - vsd
+  remote_user: root
+  gather_facts: no
+  roles:
+    - license
+  vars:
+    vsd_user: csproot
+    vsd_passwd: csproot
+    vsd_org: csp
+    license_key: {{ nuage_license_key }} 

@@ -14,15 +14,21 @@
 - name: Create group_vars/all file
   template: src=group_vars.all.j2 dest="{{ playbook_dir }}/group_vars/all" backup=no
 
+- name: Create the include directory
+  file: path={{ playbook_dir }}/include/ state=directory
+
 - name: Create YML files
   template: src={{ item }}.j2 dest="{{ playbook_dir }}/{{ item }}" backup=no
   with_items: 
+    - deploy-all.yml
+    - reset-all-domains.yml
+    - packet-create.yml
+    - packet-reset.yml
+    - nuage-install.yml 
     - util-deploy.yml
     - nserver-deploy.yml
     - stat-deploy.yml
     - vsd-deploy.yml
-    - nuage-install.yml
-#    - bridges.yml
-    - reset-all-domains.yml
-    - packet-create.yml
-    - packet-reset.yml
+    - license.yml
+    - health.yml
+

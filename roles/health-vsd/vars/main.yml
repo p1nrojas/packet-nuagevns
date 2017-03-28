@@ -1,0 +1,13 @@
+---
+# Stats process/program running on vsd
+ vsd_stats:
+   - "zookeeper-status"
+   - "vsd-core-status"
+   - "vsd-common-status"
+   - "ntp-status"
+   - "mysql-status"
+   - "mediator-status"
+   - "keyserver-status"
+   - "jboss-status"
+   - "ejbca-status"
+   - "ejabberd-status"

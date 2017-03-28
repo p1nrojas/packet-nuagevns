@@ -1,0 +1,15 @@
+---
+- name: "Checking ansible_host var"
+  fail: msg="ansible_host must to be defined in the inventory"
+  when: ansible_host is undefined
+
+- name: Installing license to VSD
+  local_action: command python {{playbook_dir}}/roles/license/files/license_install.py {{ vsd_user }} {{ vsd_passwd }} {{ vsd_org }} {{ ansible_host }} {{ license_key }} 
+  register: output
+
+- name: Verification Result Failure Status
+  fail: msg={{ output.stdout }}
+  when: output.stdout != "success"
+
+- name: Verification Result Success Status
+  debug: var=output.stdout

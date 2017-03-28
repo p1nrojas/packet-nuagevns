@@ -38,3 +38,6 @@
     - reset.sh
     - nuage.sh
     - packet.sh
+    - license.yml
+    - health.yml
+    - deploy-all.yml

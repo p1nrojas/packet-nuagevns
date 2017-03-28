@@ -66,3 +66,12 @@
 {% endif %}
 {% endfor %}
 {% endif %}
+
+{% if servers is defined %}
+[webvirtmgr]
+{% for server in servers %}
+{% if server.inventory == "webvirtmgr" %}
+{{ server.hostname }} ansible_host={{ server.ansible_host }} ansible_user=root
+{% endif %}
+{% endfor %}
+{% endif %}
