@@ -32,6 +32,7 @@ ADD setup.sh /home/dev/setup.sh
 ADD .packet_token /home/dev/.packet_token
 ADD .packet_project_id /home/dev/.packet_project_id
 ADD .summary /home/dev/.summary
+ADD .nuage_license_key /home/dev/.nuage_license_key
 RUN chmod 755 /home/dev/setup.sh
 ADD bash_profile /home/dev/.bash_profile
 RUN mkdir -p /home/dev/.vim/autoload /home/dev/.vim/bundle
