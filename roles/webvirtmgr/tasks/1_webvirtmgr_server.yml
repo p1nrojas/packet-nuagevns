@@ -1,0 +1,76 @@
+---
+
+- name: "Waiting until 5min for server to come back"
+  local_action: wait_for port=22 host="{{ ansible_host }}" search_regex=OpenSSH delay=5 timeout=300
+  remote_user: dev
+  become: false
+
+# Initialise distribution-specific variables
+- name: Pull facts
+  action: setup
+
+- name: Install repo epel-release
+  shell: yum -y install epel-release
+
+- name: install yum packages
+  yum: name={{ item }} state=present
+  with_items:
+    - 'git'
+    - 'libvirt-python'
+    - 'libxml2-python'
+    - 'python-websockify'
+    - 'supervisor'
+    - 'nginx'
+    - 'gcc'
+    - 'python-devel'
+
+
+- name: Install pip modules and git repo
+  shell: "{{ item }}"
+  with_items:
+    - 'curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"'
+    - 'python get-pip.py'
+    - 'pip install numpy'
+
+- name: webvirtmgr source has been cloned
+  git: repo=https://github.com/retspen/webvirtmgr.git
+       dest=/var/www/webvirtmgr
+       version=v4.8.8
+
+- name: database has been synced by django
+  django_manage: command=syncdb
+                 app_path=/var/www/webvirtmgr
+
+- name: fixure for user has been exists
+  copy: src=user.yaml
+        dest=/var/opt/user.yaml
+
+- name: static files have been collected by django
+  django_manage: command=loaddata
+                 app_path=/var/www/webvirtmgr
+                 fixtures=/var/opt/user.yaml
+
+- name: static files have been collected by django
+  django_manage: command=collectstatic
+                 app_path=/var/www/webvirtmgr
+
+- name: permissions on webvirtmgr has been setted
+  file: path=/var/www/webvirtmgr
+        owner=nginx group=nginx
+        recurse=yes
+
+- name: default site has been absent in /etc/nginx/sites-enabled
+  file: path=/etc/nginx/sites-enabled/default
+        state=absent
+
+- name: webvirtmgr.conf has been added in /etc/nginx/conf.d
+  copy: src=nginx.conf
+        dest=/etc/nginx/conf.d/webvirtmgr.conf
+        owner=www-data group=www-data mode=0644
+  notify: restart nginx
+
+- name: webvirtmgr.conf has been added in /etc/supervisor/conf.d
+  copy: src=supervisord.conf
+        dest=/etc/supervisor/conf.d/webvirtmgr.conf
+  notify: restart supervisor
+

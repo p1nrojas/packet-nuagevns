@@ -1,0 +1,7 @@
+- model: auth.user
+  pk: 1
+  fields:
+    first_name: Admin
+    last_name: Webvirtmgr
+    username: admin
+    password: pbkdf2_sha256$10000$Hj6JFYlsZRp1$GOFJN2DXHCLgARseP6iCqRLngz6XBK84ruNLLFjkGvc=

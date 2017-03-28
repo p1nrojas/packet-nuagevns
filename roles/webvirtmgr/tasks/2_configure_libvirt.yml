@@ -1,0 +1,39 @@
+---
+
+- name: Uncomment line LIBVIRTD_ARGS="--listen" at {{ hypervisor }}
+  lineinfile:
+    path: /etc/sysconfig/libvirtd
+    regexp: 'LIBVIRTD_ARGS='
+    line: 'LIBVIRTD_ARGS="--listen"'
+  remote_user: root
+  delegate_to: "{{ hypervisor }}"
+
+- name: Uncomment line listen_tls = 0 at {{ hypervisor }}
+  lineinfile:
+    path: /etc/libvirt/libvirtd.conf
+    regexp: 'listen_tls ='
+    line: 'listen_tls = 0'
+  remote_user: root
+  delegate_to: "{{ hypervisor }}"
+
+- name: Uncomment line listen_tcp = 1 at {{ hypervisor }}
+  lineinfile:
+    path: /etc/libvirt/libvirtd.conf
+    regexp: 'listen_tcp='
+    line: 'listen_tcp = 0'
+  remote_user: root
+  delegate_to: "{{ hypervisor }}"
+
+- name : restarting libvirtd
+  service:
+    name: libvirtd
+    state: restarted
+  remote_user: root
+  delegate_to: "{{ hypervisor }}"
+
+- name: "Create user libvirtd"
+  shell: echo "webvirtmgr" | saslpasswd2 -p -c virtmgr
+  remote_user: root
+  delegate_to: "{{ hypervisor }}"
+
+
