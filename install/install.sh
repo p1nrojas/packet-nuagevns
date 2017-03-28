@@ -22,6 +22,7 @@ curl -fsS -o Dockerfile https://raw.githubusercontent.com/p1nrojas/packet-nuagev
 curl -fsS -o vimrc https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/vimrc >> /tmp/install.log
 curl -fsS -o bash_profile https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/bash_profile >> /tmp/install.log
 curl -fsS -o setup.sh https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/setup.sh >> /tmp/install.log
+echo "================= SUMMARY RESULTS ================" > .summary
 
 #Asking packet.net token
 echo ">>"
@@ -36,6 +37,12 @@ echo ">>"
 echo -n "Enter packet.net project ID (i.e. bed437ce-6ae7-6b3a-a8e0-163e13a12a32 ) and press [ENTER]: "
 read project_id
 if [[ $project_id =~ ^[a-z0-9]*-[a-z0-9]*-[a-z0-9]*-[a-z0-9]*-[a-z0-9]*$ ]]; then echo $project_id > .packet_project_id; else echo "Format isn't right, bye!"; exit 1; fi
+
+echo ">>"
+echo ">>"
+echo -n "Enter VSD license code ( warning: remove line breaks and spaces ) and press [ENTER]: "
+read nuage_license_key
+if [[ $nuage_license_key =~ \ + ]]; then echo "Format isn't right, bye!"; else echo $nuage_license_key > .nuage_license_key; fi
 
 echo "$(date) Passed. Creating container image..."
 
@@ -64,6 +71,6 @@ echo
 echo
 echo "================================================"
 echo "Summary Results"
-docker run --rm --volumes-from vns-data-only p1nrojas/packet-nuagevns cat /home/dev/.summary_results
+docker run --rm --volumes-from vns-data-only p1nrojas/packet-nuagevns cat /home/dev/.summary
 
 echo "$(date) done!"
