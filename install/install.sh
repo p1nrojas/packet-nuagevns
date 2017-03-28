@@ -52,7 +52,7 @@ sleep 30
 
 echo "$(date) Copying public key to ansible..."
 docker cp vns-data-only:/home/dev/.ssh/id_rsa.pub .
-cat id_rsa.pub >> ~/.ssh/authorized_keys ; rm id_rsa.pub
+cat id_rsa.pub >> ~/.ssh/authorized_keys ; rm -f id_rsa.pub
 
 echo "$(date) Creating bare_metal server and preparing weave..."
 docker run --rm --volumes-from vns-data-only p1nrojas/packet-nuagevns /home/dev/packet-nuagevns/packet.sh
