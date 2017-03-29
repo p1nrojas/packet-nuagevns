@@ -8,6 +8,9 @@
 # Initialise distribution-specific variables
 - name: Pull facts
   action: setup
+  remote_user: centos
+  become: true
+  become_method: sudo
 
 - name: Install repo epel-release
   shell: yum -y install epel-release
@@ -35,7 +38,7 @@
 - name: webvirtmgr source has been cloned
   git: repo=https://github.com/retspen/webvirtmgr.git
        dest=/var/www/webvirtmgr
-       version=v4.8.8
+       version=v4.8.9
 
 - name: running pip install -r requirements.txt
   shell: cd /var/www/webvirtmgr; pip install -r requirements.txt
@@ -67,8 +70,13 @@
         state=absent
 
 - name: webvirtmgr.conf has been added in /etc/nginx/conf.d
-  copy: src=nginx.conf
+  copy: src=webvirtmgr.conf
         dest=/etc/nginx/conf.d/webvirtmgr.conf
+        owner=nginx group=nginx mode=0644
+
+- name: ngnix.conf has been added in /etc/nginx/ngnix.conf
+  copy: src=nginx.conf
+        dest=/etc/nginx/nginx.conf
         owner=nginx group=nginx mode=0644
   notify: restart nginx
 

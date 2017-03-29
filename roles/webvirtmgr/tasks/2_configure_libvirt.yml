@@ -19,7 +19,7 @@
 - name: Uncomment line listen_tcp = 1 at {{ hypervisor }}
   lineinfile:
     dest: /etc/libvirt/libvirtd.conf
-    regexp: 'listen_tcp='
+    regexp: 'listen_tcp ='
     line: 'listen_tcp = 0'
   remote_user: root
   delegate_to: "{{ hypervisor }}"
@@ -31,9 +31,9 @@
   remote_user: root
   delegate_to: "{{ hypervisor }}"
 
-- name: "Create user libvirtd"
-  shell: echo "webvirtmgr" | saslpasswd2 -p -c virtmgr
-  remote_user: root
-  delegate_to: "{{ hypervisor }}"
+#- name: "Create user libvirtd"
+#  shell: echo "webvirtmgr" | saslpasswd2 -p -c virtmgr
+#  remote_user: root
+#  delegate_to: "{{ hypervisor }}"
 
 

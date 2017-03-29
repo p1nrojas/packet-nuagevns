@@ -247,7 +247,11 @@
           pat_rules: [
           { protocol: tcp ,
             interface: bond0 ,
-            dest_port: 8000 
+            dest_port: 80 
+          },
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 6080 
           }
           ]
          }
