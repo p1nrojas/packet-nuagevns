@@ -243,6 +243,12 @@
             bridge: weave,
             ip: 192.168.0.30 ,
             netmask: 255.255.255.0 }
+          ],
+          pat_rules: [
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 8000 
+          }
           ]
          }
     vsc_controllers:
@@ -277,8 +283,8 @@
             interface: bond0 ,
             dest_port: 6633 
           }
-          ]      
-         }
+          ]
+        }      
       - { hostname: vsc2.sdn40r7.lab,
           description: "Nuage VSC - SDN controller" ,
           inventory: vsc ,

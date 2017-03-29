@@ -37,6 +37,9 @@
        dest=/var/www/webvirtmgr
        version=v4.8.8
 
+- name: running pip install -r requirements.txt
+  shell: cd /var/www/webvirtmgr; pip install -r requirements.txt
+
 - name: database has been synced by django
   django_manage: command=syncdb
                  app_path=/var/www/webvirtmgr
@@ -66,11 +69,11 @@
 - name: webvirtmgr.conf has been added in /etc/nginx/conf.d
   copy: src=nginx.conf
         dest=/etc/nginx/conf.d/webvirtmgr.conf
-        owner=www-data group=www-data mode=0644
+        owner=nginx group=nginx mode=0644
   notify: restart nginx
 
-- name: webvirtmgr.conf has been added in /etc/supervisor/conf.d
+- name: webvirtmgr.ini has been added in /etc/supervisord.d/
   copy: src=supervisord.conf
-        dest=/etc/supervisor/conf.d/webvirtmgr.conf
+        dest=/etc/supervisord.d/webvirtmgr.ini
   notify: restart supervisor
 

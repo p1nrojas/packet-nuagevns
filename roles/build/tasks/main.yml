@@ -31,4 +31,5 @@
     - vsd-deploy.yml
     - license.yml
     - health.yml
+    - webvirtmgr-deploy.yml
 

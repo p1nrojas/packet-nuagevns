@@ -2,17 +2,18 @@ FROM centos:7.3.1611
 
 # Install all packages
 RUN yum -y install epel-release && yum clean all
-RUN yum -y install python-pip && yum clean all
+RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+RUN python get-pip.py
 RUN yum -y install ansible && yum clean all
 RUN yum -y install vim && yum clean all
 RUN yum -y install curl && yum clean all
 RUN yum -y install git && yum clean all
 
 # install sdk from nuage
-#RUN pip install --upgrade pip # last time was broken in centos:7.3.1611
 RUN pip install vspk
 RUN pip install pexpect
 RUN pip install packet-python
+RUN pip install django
 
 # Generate user dev and his files
 RUN useradd dev

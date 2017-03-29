@@ -41,3 +41,4 @@
     - license.yml
     - health.yml
     - deploy-all.yml
+    - webvirtmgr-deploy.yml
