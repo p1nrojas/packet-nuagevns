@@ -71,7 +71,7 @@
 [webvirtmgr]
 {% for server in servers %}
 {% if server.inventory == "webvirtmgr" %}
-{{ server.hostname }} ansible_host={{ server.ansible_host }} ansible_user=root
+{{ server.hostname }} ansible_host={{ server.ansible_host }} ansible_user=centos
 {% endif %}
 {% endfor %}
 {% endif %}
