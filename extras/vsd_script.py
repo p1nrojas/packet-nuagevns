@@ -63,14 +63,15 @@ infrAccessUserName='nuage'
 infrAccessPassword='Alcateldc'
            
 # CSPRoot VNS NSG Templates
-nsgTemplate1Name = 'NSGV_1WAN_1LAN'
+nsgTemplate1Name = 'NSGV_2WAN_1LAN'
 nsgTemplate2Name = 'NSGV_2WAN_2LAN'
 nsgTemplate3Name = 'NSGE_2WAN_4LAN'
 
 # Create NSG instances from the NSG templates
-NSGName1="NSG-B1"
-NSGName2="NSG-B2"
-NSGName3="NSG-HQ"
+NSGName1="nsg-branch2"
+NSGName2="nsg-branch1"
+NSGName3="nsg-head1"
+NSGName4="nsg-head2"
 
 # Variables for Organization Profile
 infrOrganizationProfileName = 'Org_Profile'
@@ -89,7 +90,7 @@ zone2Name = "Branch 2"
 zone3Name = "HQ"
 zone1Description = "Lima"
 zone2Description = "Mexico"
-zone3Description = "Sao Paulo"
+zone3Description = "Texas"
 subnet1Name = "Data_Subnet_Br1"
 subnet1IpAddr = "192.1.10.0"
 subnet1Prefix = "255.255.255.0"
@@ -119,7 +120,7 @@ subnet5DhcpMaxRange = "192.1.31.99"
 # Variables for DC domain
 dcdomainName = "DC_domain"
 dczone1Name = "DataCenter"
-dczone1Description = "Frisco"
+dczone1Description = "DataCenter"
 dcsubnet1Name = "VMs"
 dcsubnet1IpAddr = "192.1.50.0"
 dcsubnet1Prefix = "255.255.255.0"
@@ -290,12 +291,12 @@ def func_create_nsg_2w_4l_template(csprootSession,nsgTemplateName,
 ######################################################
 # NSG-V template (1 network, 1 access) 
 ######################################################
-def func_create_nsg_1w_1l_template(csprootSession,nsgTemplateName,
+def func_create_nsg_2w_1l_template(csprootSession,nsgTemplateName,
                                 infrastructure_gw_profile,infra_access_profile,
                                 infrastructure_vsc_profile1,infrastructure_vsc_profile2):
     nsgateway_nsg = csprootSession.ns_gateway_templates.get_first(filter="name == '%s'" % nsgTemplateName)
     if not nsgateway_nsg:
-        print 'INFO: Creating NSG-V Template (1 network, 1 access)'
+        print 'INFO: Creating NSG-V Template (2 network, 1 access)'
         nsgateway_nsg = vspk.NUNSGatewayTemplate(name=nsgTemplateName, 
             description='One Uplinks NSG-V', infrastructure_profile_id=infrastructure_gw_profile.id, 
             infrastructure_access_profile_id=infra_access_profile.id, personality='NSG', ssh_service='ENABLED', instance_ssh_override='ALLOWED')
@@ -303,26 +304,33 @@ def func_create_nsg_1w_1l_template(csprootSession,nsgTemplateName,
 
         #Defining all ports
         p1 = vspk.NUNSPortTemplate(name='port1',port_type='NETWORK',physical_name='port1')
-        p2 = vspk.NUNSPortTemplate(name='port2',port_type='ACCESS',physical_name='port2', vlan_range='0-4094')
+        p2 = vspk.NUNSPortTemplate(name='port2',port_type='NETWORK',physical_name='port2')
+        p3 = vspk.NUNSPortTemplate(name='port3',port_type='ACCESS',physical_name='port3', vlan_range='0-4094')
 
         #assigning ports to NSG-V template
         nsgateway_nsg.create_child(p1)
         nsgateway_nsg.create_child(p2)
+        nsgateway_nsg.create_child(p3)
 
         #creating and assigning VLAN 0 to network port
         uplink_vlan1 = vspk.NUVLANTemplate(value='0', associated_vsc_profile_id=infrastructure_vsc_profile1.id)
         p1.create_child(uplink_vlan1)
+
+        uplink_vlan2 = vspk.NUVLANTemplate(value='0', associated_vsc_profile_id=infrastructure_vsc_profile2.id)
+        p2.create_child(uplink_vlan2)
         
         #creating uplink connection type (DHCP/Primary/Secondary)
         primary_uplink_connection = vspk.NUUplinkConnection(mode='Dynamic', role='PRIMARY')
         uplink_vlan1.create_child(primary_uplink_connection)
+        secondary_uplink_connection = vspk.NUUplinkConnection(mode='Dynamic', role='SECONDARY')
+        uplink_vlan2.create_child(secondary_uplink_connection)
 
         #creating and assigning VLAN 0 to access port
         p_vlan = vspk.NUVLANTemplate(value='0')
-        p2.create_child(p_vlan)
+        p3.create_child(p_vlan)
         
     else:
-        print ('INFO: NSG-V Template (1 network, 1 access) is already created')   
+        print ('INFO: NSG-V Template (2 network, 1 access) is already created')   
     return nsgateway_nsg
     
 
@@ -607,7 +615,7 @@ def main():
     ######################################################
     # create 3 NSG templates (1WAN_1LAN, 2WAN_2LAN, 2WAN_4LAN)
     ######################################################
-    nsgtemplate_1w_1l = func_create_nsg_1w_1l_template(csprootSession,nsgTemplate1Name,infrastructure_gw_profile,
+    nsgtemplate_2w_1l = func_create_nsg_2w_1l_template(csprootSession,nsgTemplate1Name,infrastructure_gw_profile,
         infra_access_profile,infrastructure_vsc_profile1,infrastructure_vsc_profile2)
 
     nsgtemplate_2w_2l = func_create_nsg_2w_2l_template(csprootSession,nsgTemplate2Name,infrastructure_gw_profile,
@@ -695,9 +703,10 @@ def main():
     ############################################# 
     # create 3 New NSGs Instances; one from each template
     ############################################# 
-    func_create_nsg(new_enterprise,nsgtemplate_1w_1l,NSGName1)
-    func_create_nsg(new_enterprise,nsgtemplate_2w_2l,NSGName2)
-    func_create_nsg(new_enterprise,nsgtemplate_2w_4l,NSGName3)
+    func_create_nsg(new_enterprise,nsgtemplate_2w_1l,NSGName1)
+    func_create_nsg(new_enterprise,nsgtemplate_2w_1l,NSGName2)
+    func_create_nsg(new_enterprise,nsgtemplate_2w_1l,NSGName3)
+    func_create_nsg(new_enterprise,nsgtemplate_2w_1l,NSGName4)
     
  
     #sys.exit()
