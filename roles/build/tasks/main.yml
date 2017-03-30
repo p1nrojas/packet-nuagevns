@@ -14,9 +14,6 @@
 - name: Create group_vars/all file
   template: src=group_vars.all.j2 dest="{{ playbook_dir }}/group_vars/all" backup=no
 
-- name: Create the include directory
-  file: path={{ playbook_dir }}/include/ state=directory
-
 - name: Create YML files
   template: src={{ item }}.j2 dest="{{ playbook_dir }}/{{ item }}" backup=no
   with_items: 

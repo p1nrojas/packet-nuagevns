@@ -316,15 +316,15 @@
           ] ,      
           static_routes: [
             "0.0.0.0/0 next-hop 192.168.0.2" 
-          ],
-          pat_rules: [
-          { protocol: tcp ,
-            interface: bond0 ,
-            dest_port: 56213 
-          },
-          { protocol: tcp ,
-            interface: bond0 ,
-            dest_port: 6633 
-          }
+#          ],
+#          pat_rules: [
+#          { protocol: tcp ,
+#            interface: bond0 ,
+#            dest_port: 56213 
+#          },
+#          { protocol: tcp ,
+#            interface: bond0 ,
+#            dest_port: 6633 
+#          }
           ]
          }

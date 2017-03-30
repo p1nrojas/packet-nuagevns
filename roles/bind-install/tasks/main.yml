@@ -6,6 +6,10 @@
   remote_user: dev
   become: false
 
+- name: Adding a pause of 2 min
+  pause:
+    minutes: 2
+
 # Initialise distribution-specific variables
 - name: Pull facts
   action: setup

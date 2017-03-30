@@ -26,6 +26,7 @@ echo "================= SUMMARY RESULTS ================" > .summary
 echo " " >> .summary
 echo "Create libvirt user: ERROR!" >> .summary
 echo "Connect WebVirtMgr at: ERROR!" >> .summary
+echo "Use credentials (webvirtmgr): ERROR!" >> .summary
 echo "Connect VSD at: ERROR!" >> .summary
 
 #Asking packet.net token
