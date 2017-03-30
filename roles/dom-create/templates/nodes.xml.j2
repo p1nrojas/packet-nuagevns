@@ -1,6 +1,6 @@
 <domain type='{{ domain_type }}'>
   <name>{{ inventory_hostname }}</name>
-  <description>Kubernetes Cluster Node</description>
+  <description>{{ description }}</description>
   <memory unit='KiB'>{{ memory_KiB }}</memory>
   <currentMemory unit='KiB'>{{ memory_KiB }}</currentMemory>
   <vcpu placement='static'>{{ vcpu_num }}</vcpu>
@@ -10,6 +10,7 @@
   <os>
     <type arch='x86_64'>hvm</type>
     <boot dev='hd'/>
+    <boot dev='cdrom'/>
   </os>
   <features>
     <acpi/>
@@ -39,21 +40,19 @@
       <alias name='virtio-disk0'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
     </disk>
-{% if No_cloud_init is undefined %}
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='{{ images_path }}{{ inventory_hostname }}/{{ inventory_hostname }}.{{ cdrom_iso }}'/>
-      <backingStore/>
+      {% if No_cloud_init is undefined %}<source file='{{ images_path }}{{ inventory_hostname }}/{{ inventory_hostname }}.{{ cdrom_iso }}'/>
+      <backingStore/>{% endif %}
       <target dev='hda' bus='ide'/>
       <readonly/>
       <alias name='ide0-0-0'/>
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
-{% endif %}
 {% for interface in interfaces %}
     <interface type='bridge'>
       <source bridge='{{ interface.bridge }}'/>
-      <model type='virtio'/>
+      <model type='{%if rtl8139 is defined %}rtl8139{% else %}virtio{% endif %}'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x1{{ loop.index }}' function='0x0'/>
     </interface>
 {% endfor %}
@@ -67,5 +66,12 @@
       <target type='serial' port='0'/>
       <alias name='serial0'/>
     </console>
+    <graphics type='vnc' port='-1' autoport='yes' listen='0.0.0.0'>
+      <listen type='address' address='0.0.0.0'/>
+    </graphics>
+    <video>
+      <model type='cirrus' vram='16384' heads='1' primary='yes'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+    </video>
   </devices>
 </domain>

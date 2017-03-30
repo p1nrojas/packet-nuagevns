@@ -40,8 +40,10 @@
   delegate_to: "{{ base_sys.stdout }}"
   ignore_errors: yes
 
-- name: Adding details to summary file
-  local_action: shell echo "{{ item }}" >> /home/dev/.summary
-  with_items:
-    - 'All services has been published thru {{ sdwan_sys.stdout }} address'
-    - 'i.e. get access to VSD at https://{{ sdwan_sys.stdout }}:8443'
+- name: Adding details to summary file about WebVirtMgr
+  local_action: 'lineinfile dest=/home/dev/.summary
+                 regexp="Connect WebVirtMgr at:" line="Connect WebVirtMgr at: http://{{ sdwan_sys.stdout }}:8090"'
+
+- name: Adding details to summary file about VSD
+  local_action: 'lineinfile dest=/home/dev/.summary
+                 regexp="Connect VSD at:" line="Connect VSD at: https://{{ sdwan_sys.stdout }}:8443"'

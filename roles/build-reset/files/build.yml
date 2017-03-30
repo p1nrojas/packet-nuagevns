@@ -133,6 +133,7 @@
           description: "NSG-v Head End at Datacenter" ,
           inventory: nsg ,
           No_cloud_init: true ,
+          rtl8139: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
@@ -151,6 +152,7 @@
           description: "NSG-v Head End at Datacenter" ,
           inventory: nsg ,
           No_cloud_init: true ,
+          rtl8139: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
@@ -169,6 +171,7 @@
           description: "NSG-v at Branch 1" ,
           inventory: nsg ,
           No_cloud_init: true ,
+          rtl8139: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
@@ -187,6 +190,7 @@
           description: "NSG-v at Branch 2" ,
           inventory: nsg ,
           No_cloud_init: true ,
+          rtl8139: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/nsg40r7.qcow2 ,
@@ -204,10 +208,11 @@
       - { hostname: cli1.sdn40r7.lab,
           description: "client at branch1" ,
           inventory: client ,
+          No_cloud_init: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/centos7-reverse.qcow2 ,
-          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7-reverse.qcow2" ,
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/ubuntu.qcow2" ,
           hypervisor: "192.168.0.2",
           interfaces: [
           { name: eth0 ,
@@ -217,10 +222,11 @@
       - { hostname: cli2.sdn40r7.lab,
           description: "client at branch2" ,
           inventory: client ,
+          No_cloud_init: true ,
           memory: 2097152 ,
           vcpu_num: 2 ,
           image_qcow2: /home/dev/images/centos7-reverse.qcow2 ,
-          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/centos7-reverse.qcow2" ,
+          image_url: "https://s3-us-west-2.amazonaws.com/nuage-demo-cala/40r7+files/ubuntu.qcow2" ,
           hypervisor: "192.168.0.2",
           interfaces: [
           { name: eth0 ,
@@ -247,7 +253,11 @@
           pat_rules: [
           { protocol: tcp ,
             interface: bond0 ,
-            dest_port: 80 
+            dest_port: 8090 
+          },
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 6080 
           }
           ]
          }

@@ -3,13 +3,16 @@
 # will be lost if reset-build or build is run
 #
 # Server name: {{ item.hostname }}
-# Description: {{ item.description }}
+description: {{ item.description }}
 
 image_qcow2: {{ item.image_qcow2 }}
 image_url: {{ item.image_url }}
 hypervisor: {{ item.hypervisor }}
 memory_KiB: {{ item.memory }}
 vcpu_num: {{ item.vcpu_num }}
+
+{%if item.rtl8139 is defined %}rtl8139: true{% endif %}
+
 {%if item.disk_GB is defined %}disk_GB: {{ item.disk_GB }}{% endif %}
 
 {%if item.Is_NM_enabled is defined %}Is_NM_enabled: {{ item.Is_NM_enabled }}{% endif %}

@@ -23,6 +23,10 @@ curl -fsS -o vimrc https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/ma
 curl -fsS -o bash_profile https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/bash_profile >> /tmp/install.log
 curl -fsS -o setup.sh https://raw.githubusercontent.com/p1nrojas/packet-nuagevns/master/install/setup.sh >> /tmp/install.log
 echo "================= SUMMARY RESULTS ================" > .summary
+echo " " >> .summary
+echo "Create libvirt user: ERROR!" >> .summary
+echo "Connect WebVirtMgr at: ERROR!" >> .summary
+echo "Connect VSD at: ERROR!" >> .summary
 
 #Asking packet.net token
 echo ">>"

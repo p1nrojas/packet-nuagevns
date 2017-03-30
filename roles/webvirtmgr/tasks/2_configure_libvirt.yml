@@ -31,9 +31,6 @@
   remote_user: root
   delegate_to: "{{ hypervisor }}"
 
-#- name: "Create user libvirtd"
-#  shell: echo "webvirtmgr" | saslpasswd2 -p -c virtmgr
-#  remote_user: root
-#  delegate_to: "{{ hypervisor }}"
-
-
+- name: Adding some guidelines at file summary
+  local_action: 'lineinfile dest=/home/dev/.summary
+                 regexp="Create libvirt user:" line="Create libvirt user: saslpasswd2 -a libvirt virtmgr (set password to webvirtmgr)"'

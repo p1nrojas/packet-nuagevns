@@ -141,27 +141,6 @@ dcsubnet4Prefix = "255.255.255.0"
 dcsubnet4DhcpMinRange = "192.1.80.10"
 dcsubnet4DhcpMaxRange = "192.1.80.99"
 
-# My standalone license - expires on june 2017
-myLicense = """MDEyOIckSkDNYxvBMQ7R5Si0blD3By2oXRMBiv8JTWPLHCN3bQPaLLHHvlHblJwAjHZTRUHo3LA1Ky
-hFX0YcTIQNEwDtvRpB5x0ZRw0SWIy/j6vFF5Faehtb7v9qmjQvOdNvNEa+MGk/JUljYfwyp/O4w9Hu
-S2+pLFWXQPvK3DP2mC2aMDE2MjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAkOyl181q5j2UHP
-UCD5nzBE5Gz0g3N1n8KAs6aEcNO7ueXvPUeiuNQ//ui0vE9otuo4AnLJkLKuxoIJmVjIKzxXlMEqsA
-K5zwOJpECOTEMxjZkyWcAujQg/ajVRcUAW+91UPz2nkzs1WkPhKs5ZjJTrksoEvmMt5fhNFXgLY2jC
-cCAwEAATA3MzV7InByb3ZpZGVyIjoiTnVhZ2UgTmV0d29ya3MgLSBBbGNhdGVsLUx1Y2VudCBJbmMi
-LCJwcm9kdWN0VmVyc2lvbiI6IjQuMCIsImxpY2Vuc2VJZCI6MSwibWFqb3JSZWxlYXNlIjoxLCJtaW
-5vclJlbGVhc2UiOjAsInVzZXJOYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1vc3RhZmEubWFuc291ckBu
-dWFnZW5ldHdvcmtzLm5ldCIsImNvbXBhbnkiOiJudWFnZSBkZW1vIiwicGhvbmUiOiIyMDIyMTU0NT
-EwIiwic3RyZWV0IjoiNzU1IFJhdmVuZGFsZSBEciwgTW91bnRhaW4gVmlldywgQ0EgOTQwNDMgIiwi
-Y2l0eSI6Im1vdW50YWluIHZpZXciLCJzdGF0ZSI6ImNhIiwiemlwIjoiOTQwNDMiLCJjb3VudHJ5Ij
-oidXNhIiwiY3VzdG9tZXJLZXkiOiJmZWZlZmVmZS1mZWZlLWZlZmUtZmVmZSIsImFsbG93ZWRWTXND
-b3VudCI6LTEsImFsbG93ZWROSUNzQ291bnQiOi0xLCJhbGxvd2VkVlJTc0NvdW50IjoyMCwiYWxsb3
-dlZFZSU0dzQ291bnQiOjIwLCJhbGxvd2VkQ1BFc0NvdW50IjoyMCwiaXNDbHVzdGVyTGljZW5zZSI6
-ZmFsc2UsImV4cGlyYXRpb25EYXRlIjoiNi8yNS8yMDE3IDEyOjAwOjAwIEFNIiwiZW5jcnlwdGlvbk
-1vZGUiOnRydWUsImxpY2Vuc2VFbnRpdGllcyI6IntcImRlcGxveW1lbnRUeXBlXCI6XCJSbkRcIixc
-ImxpY2Vuc2VSZXF1ZXN0SURcIjpcInJlcXVlc3QtMjEyMS5yZXFcIn0iLCJhZGRpdGlvbmFsU3VwcG
-9ydGVkVmVyc2lvbnMiOiIwIiwibGljZW5zZWRGZWF0dXJlIjoiVlNTIn0="""
-
-
 ###########################################
 # Initialize the VSD for a VNS deployment #
 ###########################################
@@ -601,16 +580,6 @@ def main():
         print ('ERROR: Failed to start the session')
     
     csprootSession = session.user
-
-    ###########################################
-    #  Apply License
-    ###########################################
-#    try:
-#        new_license = vspk.NULicense(license=myLicense)
-#        csprootSession.create_child(new_license)
-#        print 'INFO: Install License'
-#    except:
-#        print 'ERROR: License is rejected'
 
     ###########################################
     #  Create and Assign User to root group   #
