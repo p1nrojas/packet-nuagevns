@@ -74,6 +74,9 @@
         dest=/etc/nginx/conf.d/webvirtmgr.conf
         owner=nginx group=nginx mode=0644
 
+- name: setenforce 0
+  shell: setenforce 0
+
 - name: ngnix.conf has been added in /etc/nginx/ngnix.conf
   copy: src=nginx.conf
         dest=/etc/nginx/nginx.conf
