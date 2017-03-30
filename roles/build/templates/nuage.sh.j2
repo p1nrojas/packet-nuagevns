@@ -8,14 +8,6 @@ echo "$(date) Start Nuage VSP servers and software"
 
 cd /home/dev/packet-nuagevns
 
-ansible-playbook -i hosts nuage-install.yml
-
-ansible-playbook -i hosts nserver-deploy.yml
-
-ansible-playbook -i hosts vsd-deploy.yml 
-
-ansible-playbook -i hosts util-deploy.yml
-
-ansible-playbook -i hosts stat-deploy.yml
+ansible-playbook -i hosts deploy-all.yml
 
 echo "$(date) Listo! ahora juegue!" 
