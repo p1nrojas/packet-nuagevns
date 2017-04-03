@@ -16,6 +16,13 @@ source /home/dev/ansible/hacking/env-setup
 
 cd /home/dev/packet-nuagevns 
 
+echo "================= SUMMARY RESULTS ================" > .summary
+echo " " >> .summary
+echo "Create libvirt user: ERROR!" >> .summary
+echo "Connect WebVirtMgr at: ERROR!" >> .summary
+echo "Use credentials (webvirtmgr): ERROR!" >> .summary
+echo "Connect VSD at: ERROR!" >> .summary
+
 # Creating Packet.net device
 echo "$(date) Creating packet device for SDWAN"
 ansible-playbook packet-create.yml
