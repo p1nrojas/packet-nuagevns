@@ -1,6 +1,10 @@
 ---
-- name: Create the host_vars directory
-  file: path={{ playbook_dir }}/host_vars/ state=directory
+- name: Create directories
+  file: path={{ playbook_dir }}/{{ item }}/ state=directory
+  with_items:
+    - host_vars
+    - group_vars
+    - extras
 
 - include: server_build_helper.yml
   when: servers is defined
@@ -8,11 +12,11 @@
 - name: Create hosts file
   template: src=hosts.j2 dest="{{ playbook_dir }}/hosts" backup=no
 
-- name: Create the group_vars directory
-  file: path={{ playbook_dir }}/group_vars/ state=directory
-
 - name: Create group_vars/all file
   template: src=group_vars.all.j2 dest="{{ playbook_dir }}/group_vars/all" backup=no
+
+- name: Create vsd_script.py file in extras
+  template: src=vsd_script.py.j2 dest="{{ playbook_dir }}/extras/vsd_script.py" backup=no
 
 - name: Create YML files
   template: src={{ item }}.j2 dest="{{ playbook_dir }}/{{ item }}" backup=no

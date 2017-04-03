@@ -34,8 +34,14 @@
 ############################################# 
 
 # Define Global Variables
-vsd_ip = '192.168.0.20'
-api_url = "https://192.168.0.20:8443"
+{% if servers is defined %}
+{% for server in servers %}
+{% if server.inventory == "vsd" %}
+vsd_ip = '{{ server.ansible_host }}'
+api_url = "https://{{ server.ansible_host }}:8443"
+{% endif %}
+{% endfor %}
+{% endif %}
 username = "csproot"
 password = "csproot"
 enterprise = "csp"
@@ -44,18 +50,28 @@ enterprise = "csp"
 userName1 = "proxy"
 userName2 = "vnsportal"
 userEntName1 = "admin"
-userEmail = "@sdn40r7.lab"
+userEmail = "@{{ dns_domain }}"
 
 # CSPRoot VNS Infrastructure Gateway settings
 infrGwName = 'GW_Profile_OneFactorAuth'
 upgradeAction = 'UPGRADE_AT_BOOTSTRAPPING'
-lab_fqdn = 'util.sdn40r7.lab'
+{% if servers is defined %}
+{% for server in servers %}
+{% if server.inventory == "stat" %}
+lab_fqdn = '{{ server.hostname }}'
+{% endif %}
+{% endfor %}
+{% endif %}
 
 # CSPRoot VNS Infrastructure VSC settings
-infrVsc1Name = 'vsc1'
-VSC1_IP = "192.168.0.21"
-infrVsc2Name = 'vsc2'
-VSC2_IP = "192.168.0.22"
+{% if vsc_controllers is defined %}
+{% for server in vsc_controllers %}
+{% if server.inventory == "vsc" %}
+infrVsc{{ loop.index }}Name = '{{ server.hostname }}'
+VSC{{ loop.index }}_IP = "{{ server.ansible_host }}"
+{% endif %}
+{% endfor %}
+{% endif %}
 
 # CSPRoot VNS Infrastructure SSH Access settings
 infrAccessName='Infra_Access_Profile'
@@ -81,7 +97,13 @@ enterpriseName = "Enterprise1"
 enterpriseLocalAS = "65001"
 brdomainTemplate = "Branch_domain_template"
 dcdomainTemplate = "DC_domain_template"
-domainDNS = "192.168.0.2"
+{% if servers is defined %}
+{% for server in servers %}
+{% if server.inventory == "nserver" %}
+domainDNS = "{{ server.ansible_host }}"
+{% endif %}
+{% endfor %}
+{% endif %}
 
 # Variables for Branch domain
 brdomainName = "VPN_domain"
@@ -107,10 +129,10 @@ subnet3Prefix = "255.255.255.0"
 subnet3DhcpMinRange = "192.1.20.10"
 subnet3DhcpMaxRange = "192.1.20.99"
 subnet4Name = "DMZ_Subnet_HQ"
-subnet4IpAddr = "192.1.30.0"
+subnet4IpAddr = "192.168.0.0"
 subnet4Prefix = "255.255.255.0"
-subnet4DhcpMinRange = "192.1.30.10"
-subnet4DhcpMaxRange = "192.1.30.99"
+subnet4DhcpMinRange = "192.168.0.150"
+subnet4DhcpMaxRange = "192.168.0.200"
 subnet5Name = "Mgmt_Subnet_HQ"
 subnet5IpAddr = "192.1.31.0"
 subnet5Prefix = "255.255.255.0"

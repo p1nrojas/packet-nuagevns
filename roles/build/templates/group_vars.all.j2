@@ -5,6 +5,7 @@
 #
 
 {% if summary_file is defined %}summary_file: {{ summary_file }}{% endif %}
+
 ssh_rsa:
   key:
 {% for key in ssh_key %}

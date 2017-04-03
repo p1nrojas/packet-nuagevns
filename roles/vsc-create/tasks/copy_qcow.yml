@@ -17,18 +17,6 @@
     - hypervisor is defined
     - qcow2_resize.stat.exists == False
 
-#- name: "copy image to hypervisor from local path: {{ image_qcow2 }} to remote path: {{ image_qcow2 }}"
-#  copy:
-#    src: "{{ image_qcow2 }}"
-#    dest: "{{ image_qcow2 }}"
-#    owner: "{{ libvirt.user }}"
-#    group: "{{ libvirt.group }}"
-#    mode: 0666
-#  delegate_to: "{{ hypervisor }}"
-#  when:
-#    - hypervisor is defined
-#    - qcow2_resize.stat.exists == False
-
 - name: Checking in VM image file is was already copied before
   stat:
     path: "{{ images_path }}{{ inventory_hostname }}/{{ inventory_hostname }}.qcow2"
