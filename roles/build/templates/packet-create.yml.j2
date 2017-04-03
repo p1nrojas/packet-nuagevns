@@ -15,7 +15,7 @@
     bmetal_plan: baremetal_2
     device_name: sdwan01
     base_system: ansible
-    {% if summary_file is defined %}    summary_file: {{ summary_file }}{% endif %}    
+{% if summary_file is defined %}    summary_file: {{ summary_file }}{% endif %}    
     public_if: {{ public_if }}
     bridges:
       - { name: wan,
