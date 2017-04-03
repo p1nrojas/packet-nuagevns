@@ -86,5 +86,5 @@
 - name: webvirtmgr.ini has been added in /etc/supervisord.d/
   copy: src=supervisord.conf
         dest=/etc/supervisord.d/webvirtmgr.ini
-  notify: restart supervisor
+  notify: restart supervisord
 
