@@ -127,17 +127,17 @@
     dhcp_subnets:
 {% for server in servers %}
 {% if server.inventory == 'nserver' %}
-      - { subnet: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.0 ,
-          netmask: 255.255.255.0 ,
-          range_min: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.150 ,
-          range_max: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.250 ,
-          domain_name: {{ dns_domain }},
-          domain_name_server: {{ server.interfaces[0].ip }} ,
-          router: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.1 ,
-          broadcast_address: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.255 ,
-          default_lease_time: 600000 ,
-          max_lease_time: 7200000
-        }
+#      - { subnet: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.0 ,
+#          netmask: 255.255.255.0 ,
+#          range_min: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.150 ,
+#          range_max: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.250 ,
+#          domain_name: {{ dns_domain }},
+#          domain_name_server: {{ server.interfaces[0].ip }} ,
+#          router: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.1 ,
+#          broadcast_address: {{ server.interfaces[0].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.255 ,
+#          default_lease_time: 600000 ,
+#          max_lease_time: 7200000
+#        }
       - { subnet: {{ server.interfaces[1].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.0 ,
           netmask: 255.255.255.0 ,
           range_min: {{ server.interfaces[1].ip | regex_replace('^([0-9]*\.[0-9]*\.[0-9]*)\.[0-9]*$', '\\1') }}.150 ,
