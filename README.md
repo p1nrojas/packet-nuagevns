@@ -1,6 +1,6 @@
-##Caution! Use it under your own risk. Intended for PoCs and Labs
+## Caution! Use it under your own risk. Intended for PoCs and Labs
 
-#Createyour SD-WAN experience at packet.net (Nuage Virtualized Network Services)
+# Createyour SD-WAN experience at packet.net (Nuage Virtualized Network Services)
 
 This playbook will create a Bare Metal Type 2 server at packet.net and install a whole Nuage VNS solution to try auto-bootstrapping and things also like Application Aware Routing.
 
@@ -15,7 +15,7 @@ Installing igateways, dns and ntp services, management and control planes in jus
 - Clients are using Ubuntu Desktop
 - WebVirtMgr to manage your instances and bootstrapping process
 
-##Prepare your enviroment
+## Prepare your enviroment
 
 Create a Bare Metal Tyoe 0 server called 'ansible' in your Project. You must have your Token ID, Project ID and Nuage License key at your reach.
 
@@ -35,7 +35,7 @@ This script will do everything. When you're done. Just add the KVM server to you
 - Connect VSD at: https://10.88.157.133:8443
 - Clients (Ubuntu Desktop) use nuage/nuage credentials 
 
-# Create app container
+## Create app container
 You can laso take a look to the playbook at ansible server creating a container as the following:
 
 ```
