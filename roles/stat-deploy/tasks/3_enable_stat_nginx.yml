@@ -14,10 +14,10 @@
   remote_user: root
   ignore_errors: true
 
-- name: fetch certs from VSD
+- name: fetch certs from VSD to {{ inventory_hostname }}
   fetch:
     src: "/opt/vsd/ejbca/p12/pem/{{ item }}"
-    dest: "/tmp/{{ item }}"
+    dest: "/tmp"
   delegate_to: "{{ vsd_host }}"
   remote_user: root
   become: false
@@ -27,8 +27,8 @@
 
 - name: copy certs to stat
   copy:
-    src: "/tmp/{{ item }}"
-    dest: "/etc/nginx/ssl/{{ item }}" 
+    src: "/tmp/{{ inventory_hostname }}/opt/vsd/ejbca/p12/pem/{{ item }}"
+    dest: "/etc/nginx/ssl" 
     owner: root
     group: root
     mode: 0600
