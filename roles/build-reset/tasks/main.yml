@@ -39,3 +39,4 @@
     - health.yml
     - deploy-all.yml
     - webvirtmgr-deploy.yml
+    - .summary

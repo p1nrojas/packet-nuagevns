@@ -32,11 +32,11 @@
   delegate_to: "{{ hypervisor }}"
 
 - name: Adding some guidelines at file summary
-  local_action: 'lineinfile dest=/home/dev/.summary regexp="Create libvirt user:" line="Create libvirt user: saslpasswd2 -a libvirt virtmgr (set password to webvirtmgr at 192.168.0.2)"'
+  local_action: 'lineinfile dest={{ summary_file }} regexp="Create libvirt user:" line="Create libvirt user: saslpasswd2 -a libvirt virtmgr (set password to webvirtmgr at 192.168.0.2)"'
   remote_user: dev
   become: false
 
 - name: Adding some guidelines at file summary
-  local_action: 'lineinfile dest=/home/dev/.summary regexp="Use credentials (webvirtmgr):" line="Use credentials (webvirtmgr): admin/webvirtmgr"'
+  local_action: 'lineinfile dest={{ summary_file }} regexp="Use credentials" line="Use credentials (webvirtmgr): admin/webvirtmgr"'
   remote_user: dev
   become: false

@@ -1,0 +1,44 @@
+---
+
+- name: create directory /etc/nginx/ssl
+  file:
+    dest: /etc/nginx/ssl
+    state: directory
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Executing vsd-stats.sh at VSD
+  shell:  /opt/vsd/ejbca/deploy/certMgmt.sh -a generate -u elastic -c elastic -o csp -f pem -t server -d {{ inventory_hostname }}
+  delegate_to: "{{ vsd_host }}"
+  remote_user: root
+  ignore_errors: true
+
+- name: fetch certs from VSD
+  fetch:
+    src: "/opt/vsd/ejbca/p12/pem/{{ item }}"
+    dest: "/tmp/{{ item }}"
+  delegate_to: "{{ vsd_host }}"
+  remote_user: root
+  become: false
+  with_items:
+    - 'elasticCert.pem'
+    - 'elastic-Key.pem'
+
+- name: copy certs to stat
+  copy:
+    src: "/tmp/{{ item }}"
+    dest: "/etc/nginx/ssl/{{ item }}" 
+    owner: root
+    group: root
+    mode: 0600
+  with_items:
+    - 'elasticCert.pem'
+    - 'elastic-Key.pem'
+
+
+- name: restart nginx service
+  service:
+    name: nginx
+    state: restarted
+

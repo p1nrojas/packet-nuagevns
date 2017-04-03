@@ -41,9 +41,9 @@
   ignore_errors: yes
 
 - name: Adding details to summary file about WebVirtMgr
-  local_action: 'lineinfile dest=/home/dev/.summary
+  local_action: 'lineinfile dest={{ summary_file }}
                  regexp="Connect WebVirtMgr at:" line="Connect WebVirtMgr at: http://{{ sdwan_sys.stdout }}:8090"'
 
 - name: Adding details to summary file about VSD
-  local_action: 'lineinfile dest=/home/dev/.summary
+  local_action: 'lineinfile dest={{ summary_file }}
                  regexp="Connect VSD at:" line="Connect VSD at: https://{{ sdwan_sys.stdout }}:8443"'

@@ -76,6 +76,6 @@ echo
 echo
 echo "================================================"
 echo "Summary Results"
-docker run --rm --volumes-from vns-data-only p1nrojas/packet-nuagevns cat /home/dev/.summary
+docker run --rm --volumes-from vns-data-only p1nrojas/packet-nuagevns cat /home/dev/packet-nuagevns/.summary
 
 echo "$(date) done!"

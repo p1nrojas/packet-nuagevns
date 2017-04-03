@@ -14,6 +14,7 @@
     packet_token: "{{ lookup('file', '/home/dev/.packet_token') }}"
     project_id: "{{ lookup('file', '/home/dev/.packet_project_id') }}"
     nuage_license_key: "{{ lookup('file', '/home/dev/.nuage_license_key') }}"
+    summary_file: "/home/dev/packet-nuagevns/.summary"
     ssh_key:
     - "{{ lookup('file', '/home/dev/.ssh/id_rsa.pub') }}"
     servers: 
@@ -126,6 +127,14 @@
           { protocol: tcp ,
             interface: bond0 ,
             dest_port: 39090 
+          },
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 6200 
+          },
+          { protocol: tcp ,
+            interface: bond0 ,
+            dest_port: 5601 
           }
           ]      
          }
