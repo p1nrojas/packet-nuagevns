@@ -2,9 +2,9 @@
 
 # Createyour SD-WAN experience at packet.net (Nuage Virtualized Network Services)
 
-This playbook will create a Bare Metal Type 2 server at packet.net and install a whole Nuage VNS solution to try auto-bootstrapping and things also like Application Aware Routing.
+This playbook will create a Bare Metal Type 2 server at packet.net and install a whole Nuage VNS solution to try things like Zero Touch Bootstrapping and  Application Aware Routing.
 
-Installing igateways, dns and ntp services, management and control planes in just one server with Centos7 KVM:
+Installing gateways, dns and ntp services, management and control planes in just one server with Centos7 KVM:
 - Install your KVM server (sdwan01) into the brand new bare metal type 2 server.
 - Create a dns/ntp/dhcp instance.
 - Nuage VSD ( management ) and a couple of VCSs (control).
@@ -14,6 +14,11 @@ Installing igateways, dns and ntp services, management and control planes in jus
 - Two independent NSG-vs as remote sites and a couple of clients behind
 - Clients are using Ubuntu Desktop
 - WebVirtMgr to manage your instances and bootstrapping process
+
+More details at pinrojas.com (http://wp.me/p44sHI-1iO) and Check the app at https://github.com/p1nrojas/packet-nuagevns
+Check youtube at https://www.youtube.com/watch?v=ydQmYJQnkuo
+More details about AAR at https://www.youtube.com/watch?v=bBdHYoLJ6Tk
+And about Zero touch Bootstrapping (ZTP) at https://www.youtube.com/watch?v=nZUY4nq0Mmc
 
 ## Prepare your enviroment
 
