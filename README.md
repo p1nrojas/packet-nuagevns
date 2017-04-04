@@ -15,10 +15,7 @@ Installing gateways, dns and ntp services, management and control planes in just
 - Clients are using Ubuntu Desktop
 - WebVirtMgr to manage your instances and bootstrapping process
 
-More details at pinrojas.com (http://wp.me/p44sHI-1iO) and Check the app at https://github.com/p1nrojas/packet-nuagevns
-Check youtube at https://www.youtube.com/watch?v=ydQmYJQnkuo
-More details about AAR at https://www.youtube.com/watch?v=bBdHYoLJ6Tk
-And about Zero touch Bootstrapping (ZTP) at https://www.youtube.com/watch?v=nZUY4nq0Mmc
+More details at pinrojas.com (http://wp.me/p44sHI-1iO) and Check the app at https://github.com/p1nrojas/packet-nuagevns. Check youtube at https://www.youtube.com/watch?v=ydQmYJQnkuo. More details about AAR at https://www.youtube.com/watch?v=bBdHYoLJ6Tk. And about Zero touch Bootstrapping (ZTP) at https://www.youtube.com/watch?v=nZUY4nq0Mmc
 
 ## Prepare your enviroment
 
