@@ -19,7 +19,7 @@ Installing igateways, dns and ntp services, management and control planes in jus
 
 Create a Bare Metal Tyoe 0 server called 'ansible' in your Project. You must have your Token ID, Project ID and Nuage License key at your reach.
 
-## Quick Start
+## How to start
 
 Create your baremetal server type 0 called "ansible" as I told you.
 Then run the following.
@@ -42,6 +42,12 @@ You can laso take a look to the playbook at ansible server creating a container 
 docker run -d -i -t --volumes-from vns-data-only --network weave --ip 192.168.0.100 --name vns-install p1nrojas/packet-nuagevns /bin/bash
 docker exec -i -t vns-install /bin/bash
 ```
-There is a 'extras' folder inside packet-nuagevns folder that you can use to set up your test domains.
+
+## Create your organization, NSG profiles....
+There is an 'extras' folder inside packet-nuagevns folder (playbook directory) that you can use to set up your test domains:
+```
+cd extras
+python vsd_script.py
+```
 
 See ya!
