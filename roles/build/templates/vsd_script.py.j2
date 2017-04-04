@@ -57,7 +57,7 @@ infrGwName = 'GW_Profile_OneFactorAuth'
 upgradeAction = 'UPGRADE_AT_BOOTSTRAPPING'
 {% if servers is defined %}
 {% for server in servers %}
-{% if server.inventory == "stat" %}
+{% if server.inventory == "util" %}
 lab_fqdn = '{{ server.hostname }}'
 {% endif %}
 {% endfor %}
