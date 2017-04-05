@@ -1,5 +1,5 @@
 - name: restart nginx
   service: name=nginx state=restarted
 
-- name: restart supervisor
-  service: name=supervisor state=restarted
+- name: restart supervisord
+  service: name=supervisord state=restarted

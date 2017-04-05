@@ -76,6 +76,7 @@
 
 - name: setenforce 0
   shell: setenforce 0
+  ignore_errors: yes
 
 - name: ngnix.conf has been added in /etc/nginx/ngnix.conf
   copy: src=nginx.conf
@@ -86,5 +87,5 @@
 - name: webvirtmgr.ini has been added in /etc/supervisord.d/
   copy: src=supervisord.conf
         dest=/etc/supervisord.d/webvirtmgr.ini
-  notify: restart supervisor
+  notify: restart supervisord
 

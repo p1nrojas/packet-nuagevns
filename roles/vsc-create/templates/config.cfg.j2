@@ -16,6 +16,7 @@ echo "System Configuration"
         exit
         time
             ntp
+                ntp-server
 {% for server in ntp_server %}
                 server {{ server }}
 {% endfor %}
