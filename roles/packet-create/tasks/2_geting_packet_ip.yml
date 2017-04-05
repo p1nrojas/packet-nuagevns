@@ -20,3 +20,14 @@
 - name: Verification Result Success Status
   debug: var=sdwan_sys.stdout
 
+- name: "Getting the Public IP address from Packet server"
+  local_action: command python {{playbook_dir}}/roles/packet-create/files/packet_get_ipaddr_pub.py {{ project_id }} {{ packet_token }} {{ device_name }}
+  register: sdwan_pub_sys
+
+- name: Verification Result Failure Status
+  fail: msg={{ sdwan_pub_sys.stdout }}
+  when: sdwan_pub_sys.stdout | match("!^[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*$")
+
+- name: Verification Result Success Status
+  debug: var=sdwan_pub_sys.stdout
+
