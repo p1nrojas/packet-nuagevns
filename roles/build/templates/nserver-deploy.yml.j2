@@ -48,7 +48,7 @@
     bind_forwarders:
       - 8.8.8.8
       - 4.4.4.4
-    bind_zone_name: sdn40r7.lab
+    bind_zone_name: {{ dns_domain }}
     bind_zone_networks:
 {% for server in servers %}
 {% if server.inventory == 'nserver' %}
