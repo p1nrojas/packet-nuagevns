@@ -87,12 +87,16 @@
     name: ntpd
     state: started
   remote_user: root
+  
+- name: pause of 5 minutes
+  pause:
+    minutes: 5
 
 - name: check ntp sync state
   shell: ntpstat | awk 'NR==1{print $1}'
   register: sync_status
   until: sync_status.stdout == "synchronised"
-  retries: 6
+  retries: 12
   delay: 10
   remote_user: root
 
