@@ -87,17 +87,13 @@
     name: ntpd
     state: started
   remote_user: root
-  
-- name: pause of 5 minutes
-  pause:
-    minutes: 5
 
 - name: check ntp sync state
   shell: ntpstat | awk 'NR==1{print $1}'
   register: sync_status
   until: sync_status.stdout == "synchronised"
-  retries: 12
-  delay: 10
+  retries: 30
+  delay: 60
   remote_user: root
 
 - name: "Create ssh key at VSD"
