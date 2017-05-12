@@ -30,4 +30,9 @@
 
 - name: Verification Result Success Status
   debug: var=sdwan_pub_sys.stdout
+  
+- name: "Waiting until 5min for server to come back"
+  local_action: wait_for port=22 host="{{ sdwan_sys.stdout }}" search_regex=OpenSSH delay=30 timeout=300
+  remote_user: dev
+  become: false
 
