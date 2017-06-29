@@ -10,6 +10,7 @@ RUN yum -y install curl && yum clean all
 RUN yum -y install git && yum clean all
 
 # install sdk from nuage
+RUN rm -rf /usr/lib/python2.7/site-packages/chardet*
 RUN pip install vspk
 RUN pip install pexpect
 RUN pip install packet-python
